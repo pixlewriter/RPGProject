@@ -1,5 +1,5 @@
 #include <iostream>
-#include "enterBattle.cpp"
+#include "enterBattle.h"
 
 using namespace std;
 

@@ -13,6 +13,7 @@ using namespace std;
 BattleMachine::BattleMachine() {
   //Spawns the player and sets stats
   Character* newPlayer = new Player(50,10,10);
+  Character* newEnemy = nullptr;
 
   //pick a random number between 1 and 10 to determine which enemy to generate
   default_random_engine engine{ static_cast<unsigned>(time(0)) };
@@ -26,8 +27,7 @@ BattleMachine::BattleMachine() {
   case 2:
   case 3:
     //generated a troll
-    Character* newEnemy = new Enemy(100, 5, 0);
-    this->enemy = newEnemy;
+    newEnemy = new Enemy(100, 5, 0);
     cout << "A wild troll appears. It's tough but slow." << endl;
     break;
 
@@ -37,22 +37,19 @@ BattleMachine::BattleMachine() {
   case 7:
   case 8:
     //generate a ghost
-    Character * newEnemy = new Enemy(10, 10, 10);
-    this->enemy = newEnemy;
+    newEnemy = new Enemy(10, 10, 10);
     cout << "It's a ghost. It looks pretty fragile." << endl;
     break;
 
   case 9:
   case 10:
     //generate a witch
-    Character * newEnemy = new Enemy(25, 15, 25);
-    this->enemy = newEnemy;
+    newEnemy = new Enemy(25, 15, 25);
     cout << "A witch. Burn her." << endl;
     break;
   }
 
-  //Spawns an enemy and sets stats
-  Character* newEnemy = new Enemy(30, 10, 5);
+  this->enemy = newEnemy;
   this->player = newPlayer;
 }
 void BattleMachine::takeTurn() {

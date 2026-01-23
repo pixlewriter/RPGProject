@@ -30,8 +30,8 @@
     <ClCompile Include="BattleMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enterBattle.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="enterBattle.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
