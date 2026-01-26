@@ -71,6 +71,8 @@ void BattleMachine::takeTurn() {
     turn = Turn::PLAYER;
     cin.ignore();
   }
+
+  isDead();
   turnResults();
 }
 
@@ -84,6 +86,34 @@ void BattleMachine::turnResults() {
 }
 
 void BattleMachine::battleResults() {
-  cout << "The battle is over" << endl;
+  //print results of the battle depending on what the STATUS is set to
+  switch (status) {
+  case PLAYERDEAD:
+    cout << "You died. What a wimp." << endl;
+    break;
+
+  case PLAYERRUN:
+    cout << "You ran away. Find some courage next time." << endl;
+    break;
+
+  case ENEMYDEAD:
+    cout << "You slayed the enemy." << endl;
+    break;
+
+  case ENEMYRUN:
+    cout << "You hit the enemy so hard he ran away." << endl;
+    break;
+  }
+
 }
  
+//function checks to see whether either player is dead, and updates the status
+void BattleMachine::isDead() {
+  if (player->getTempHealth() <= 0) {
+    status = Status::PLAYERDEAD;
+  }
+
+  if (enemy->getTempHealth() <= 0) {
+    status = Status::ENEMYDEAD;
+  }
+}

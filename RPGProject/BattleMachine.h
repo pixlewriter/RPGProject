@@ -16,6 +16,9 @@ private:
   //prints the results of the turn
   void turnResults();
 
+  //check to see if either charcter is dead, and update the status accordingly
+  void isDead();
+
 public:
   Status status = Status::ATWAR;
   Turn turn = Turn::PLAYER;
