@@ -5,9 +5,13 @@ class Enemy :
 {
     using Character::Character;
 private:
-    double fear;
-    double recklessness;
+    int fear = 0;
+    double recklessness = 1;
 public:
     void damageDealt(double damage) override;
+    int getFear();
+    double getRecklessness();
+    void setFear(int num);
+    void setRecklessness(double num);
 };
 
