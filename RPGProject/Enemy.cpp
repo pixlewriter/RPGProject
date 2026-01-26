@@ -7,3 +7,19 @@ void Enemy::damageDealt(double damage) {
 	}
 	recklessness = 1 - (getTempHealth() / getMaxHealth());
 }
+
+int Enemy::getFear() {
+	return fear;
+}
+
+double Enemy::getRecklessness (){
+	return recklessness;
+}
+
+void Enemy::setFear(int num) {
+	fear = num;
+}
+
+void Enemy::setRecklessness(double num) {
+	recklessness = num;
+}
