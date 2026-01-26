@@ -8,9 +8,9 @@ void Player::attack(Character& character) {
 }
 
 void Player::heal() {
-	heal();
+	Character::heal();
 }
 
-void damageDelt(double damage) {
-	damageDelt(damage);
+void Player::damageDealt(double damage) {
+	Character::damageDealt(damage);
 }
