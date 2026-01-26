@@ -6,7 +6,7 @@
 #include "Player.h"
 
 
-void enterBattle() {
+inline void enterBattle() {
 
   //creates a new battle, which loads the player and a random enemy
   BattleMachine battle;
