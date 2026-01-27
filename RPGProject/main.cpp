@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "enterBattle.h";
+#include "enterBattle.h"
 
 
 // function prototypes
