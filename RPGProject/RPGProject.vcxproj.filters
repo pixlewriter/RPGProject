@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{244be276-c3f0-4cd5-9977-a3934b277896}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,6 +36,9 @@
     <ClCompile Include="enterBattle.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utillities\utills.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -46,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="BattleMachine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillities\utills.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utillities\structures.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
