@@ -3,8 +3,10 @@
 #include <cstdlib>
 #include <vector>
 #include <random>
+#include <format>
+#include <stdio.h>
+#include <conio.h>
 #include "utills.h"
-
 
 namespace QOLL {
 	std::string stringToLower(std::string text) {
@@ -143,5 +145,59 @@ namespace QOLL {
 		output += (end ? "\033[0m" : "");
 
 		return output;
+	}
+
+	void printMenu(int currentChoice, const char* options[], const int size) {
+		std::string cursor = "";
+		for (int i = 1; i < size + 1; i++) {
+			if (currentChoice == i) {
+				cursor = "> ";
+			}
+			else {
+				cursor = "- ";
+			}
+			std::cout << cursor << i << ". " << options[i - 1] << std::endl;
+
+		}
+	}
+
+	int menuInput(const char* options[], const int optionSize) {
+		//This string return the cursor to the start of the menu by moving the cursor up by the number of options \x1B[{number of lines}A
+	//then return the cursor to the start of the line \r
+		std::string returnString = std::format("\x1B[{}A\r",optionSize);
+		int currentChoice = 1;
+		printMenu(currentChoice, options, optionSize);
+
+		while (true) {
+			if (_kbhit()) { // Check if a key has been pressed
+				char key = _getch(); // Get the key character
+				if (key == -32 || key == 0) {
+					key = _getch();
+					switch (key) {
+					case 72:
+						currentChoice = ((currentChoice++) % optionSize) + 1;
+						std::cout << returnString;
+						printMenu(currentChoice, options, optionSize);
+						break;
+					case 80:
+						if (currentChoice <= 1) currentChoice = optionSize;
+						else currentChoice--;
+						std::cout << returnString;
+						printMenu(currentChoice, options, optionSize);
+						break;
+					default:
+						break;
+					}
+				}
+				else if (key == 13) {
+					return currentChoice;
+				}
+				else {
+					std::cout << key << "=" << (int)key << std::endl;
+				}
+
+			}
+		}
+		return 0;
 	}
 }

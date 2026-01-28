@@ -60,5 +60,7 @@ namespace QOLL {
 	std::string center(std::string text, unsigned int width);
 	std::string colorText(Color color);
 	std::string colorText(std::string text, Color color, bool end = true);
+	void printMenu(int currentChoice, const char* options[], const int optionsSize);
+	int menuInput(const char* options[], const int optionSize);
 
 }
