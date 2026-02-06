@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
 #include "enterBattle.h"
+#include "Menu.h"
 
+using namespace std;
 
 // function prototypes
 void returnToOverworld();
@@ -10,23 +12,16 @@ void manageInventory();
 void enterShop();
 void chat();
 void quitGame();
-void displayMenu();
 
 int main() {
     int choice = 0;
     bool running = true;
 
-    while (running) {
-        displayMenu();
-        std::cout << "Enter your choice: ";
 
-        // stops bad inputs
-        if (!(std::cin >> choice)) {
-            std::cout << "Invalid input. Please enter a number.\n";
-            std::cin.clear();
-            std::cin.ignore(1000, '\n');
-            continue;
-        }
+    while (running) {
+        vector<string> options= {"Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game"};
+        Menu settingsMenu{ "GAME MENU", options };
+        int choice = settingsMenu.printDynamicMenu();
         //handles valid inputs
         switch (choice) {
         case 1:
@@ -57,17 +52,6 @@ int main() {
 }
 
 //function definitions
-
-void displayMenu() {
-    std::cout << "\n--- GAME MENU ---\n";
-    std::cout << "1. Return to Game\n";
-    std::cout << "2. Enter Battle\n";
-    std::cout << "3. Manage Inventory\n";
-    std::cout << "4. Enter Shop\n";
-    std::cout << "5. Talk to Someone\n";
-    std::cout << "6. Quit Game\n";
-    std::cout << "-----------------\n";
-}
 
 void returnToOverworld() {
     std::cout << "[Action] Returning to the overworld...\n";
