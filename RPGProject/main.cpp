@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "enterBattle.h"
-
+#include "audio_manager.h"
 
 // function prototypes
 void returnToOverworld();
@@ -13,6 +13,7 @@ void quitGame();
 void displayMenu();
 
 int main() {
+    init_audio();
     int choice = 0;
     bool running = true;
 
@@ -52,7 +53,7 @@ int main() {
             std::cout << "Invalid selection. Please try again.\n";
         }
     }
-
+    cleanup_audio();
     return 0;
 }
 

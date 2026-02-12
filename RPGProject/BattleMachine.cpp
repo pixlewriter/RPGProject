@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "audio_manager.h"
 
 using namespace std;
 
@@ -68,6 +69,9 @@ void BattleMachine::takeTurn() {
     case '1':
       //player attacks the enemy
       player->attack(*enemy);
+
+      play_effect("attack_example_sound.wav");
+      
       cout << "You attacked the enemy" << endl;
       break;
 
