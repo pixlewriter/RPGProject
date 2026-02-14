@@ -5,6 +5,7 @@
 #include "Player.h"
 
 using namespace std;
+#include "audio_manager.h"
 
 // function prototypes
 void returnToOverworld();
@@ -14,6 +15,7 @@ void chat();
 void quitGame();
 
 int main() {
+    init_audio();
     int choice = 0;
     bool running = true;
 
@@ -95,7 +97,7 @@ int main() {
             std::cout << "Invalid selection. Please try again.\n";
         }
     }
-
+    cleanup_audio();
     return 0;
 }
 
