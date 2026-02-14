@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "enterBattle.h"
+#include "manageInventory.h"
 
 
 // function prototypes

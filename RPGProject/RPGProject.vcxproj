@@ -194,6 +194,8 @@
     <ClInclude Include="BattleMachine.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="InventoryItem.h" />
+    <ClInclude Include="manageInventory.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Utillities\structures.h" />
     <ClInclude Include="Utillities\utills.h" />
