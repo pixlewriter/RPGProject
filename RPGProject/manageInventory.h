@@ -6,23 +6,39 @@
 #include<algorithm>
 
 inline void manageInventory(Player* player) {
-  /*
    //diplay a menu for the player to choose
    std::cout << "Select an option" << std::endl;
    std::cout << "1. View Inventory" << std::endl;
    std::cout << "2. Add item" << std::endl;
    std::cout << "3. Drop item" << std::endl;
-   std::cout << "4. Exit" << std::endl;
    char choice;
    std::cin >> choice;
 
    //input validation, in case the user enters something different
-   while (choice != '1' && choice != '2' && choice != '3' && choice != '4') {
+   while (choice != '1' && choice != '2' && choice != '3') {
      std::cin >> choice;
    }
 
    std::cout << "\033[2J\033[1;1H";
-   */
+
+   switch (choice) {
+   case '1':
+     printInventory(player->inventory);
+     break;
+
+   case'2':
+     std::cout << "You picked up a rock" << std::endl;
+     addItem(player->inventory, "Rock");
+     printInventory(player->inventory);
+     break;
+
+   case '3':
+     std::cout << "You dropped a rock" << std::endl;
+     removeItem(player->inventory, "Rock");
+     printInventory(player->inventory);
+     break;
+   }
+
 
 }
 
