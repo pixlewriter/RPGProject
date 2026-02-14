@@ -89,5 +89,11 @@ public:
 		tempHealth{ health },
 		strength{ strength },
 		mana{ mana } { }
+	Character() {
+		maxHealth = 50;
+		tempHealth = 50;
+		strength = 50;
+		mana = 50;
+	}
 };
 

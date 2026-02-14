@@ -6,12 +6,12 @@
 #include "Player.h"
 
 
-inline void enterBattle() {
+inline void enterBattle(Character* player) {
   //clears the screen
   std::cout << "\033[2J\033[1;1H";
 
   //creates a new battle, which loads the player and a random enemy
-  BattleMachine battle;
+  BattleMachine battle(player);
 
   std::cin.ignore();
 

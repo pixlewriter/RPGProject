@@ -188,6 +188,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="enterBattle.h" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Utillities\utills.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@
     <ClInclude Include="BattleMachine.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="miniaudio.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Utillities\structures.h" />

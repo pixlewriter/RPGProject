@@ -42,6 +42,11 @@
     <ClCompile Include="Utillities\utills.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCreationMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
     <ClCompile Include="audio_manager.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
@@ -64,6 +69,12 @@
     </ClInclude>
     <ClInclude Include="Utillities\structures.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCreationMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="miniaudio.h">
       <Filter>Utilities</Filter>
