@@ -1,4 +1,7 @@
 #pragma once
+#include<list>
+#include "InventoryItem.h"
+
 class Character
 {
 private:
@@ -8,6 +11,10 @@ private:
 	double mana;
 
 public:
+
+  //the character's inventory
+  std::list<InventoryItem> inventory;
+
 	/**
 	* Deals damage to a character
 	*

@@ -13,7 +13,7 @@ struct InventoryItem {
 
 
 //generates the inventory, with is set with default values of 0 for all items
-std::list<InventoryItem> generateInventory() {
+inline std::list<InventoryItem> generateInventory() {
   std::list<InventoryItem> inventory{
     {"Key", 100},
     {"Gold Nugget", 300},
@@ -22,4 +22,5 @@ std::list<InventoryItem> generateInventory() {
     {"Rock", 10},
     {"Coin", 50}
   };
+  return inventory;
 }
