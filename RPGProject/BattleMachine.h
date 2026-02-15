@@ -24,7 +24,7 @@ public:
   Turn turn = Turn::PLAYER;
 
   //creates a battle machine, selects an enemy, and sets the player stats
-  BattleMachine();
+  BattleMachine(Character* player);
 
   //takes a turn depending on whose turn it is, and prints the results of the turn
   void takeTurn();

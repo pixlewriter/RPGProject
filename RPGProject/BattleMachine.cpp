@@ -6,14 +6,14 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "audio_manager.h"
 
 using namespace std;
 
 //creates a new battle, spawning the player and a random enemy
 
-BattleMachine::BattleMachine() {
+BattleMachine::BattleMachine(Character* player) {
   //Spawns the player and sets stats
-  Character* newPlayer = new Player(50,10,10);
   Character* newEnemy = nullptr;
 
   //pick a random number between 1 and 3 to determine which enemy to generate
@@ -44,7 +44,7 @@ BattleMachine::BattleMachine() {
   }
 
   this->enemy = newEnemy;
-  this->player = newPlayer;
+  this->player = player;
 }
 void BattleMachine::takeTurn() {
   //allows the player to go if it is players turn
@@ -68,6 +68,9 @@ void BattleMachine::takeTurn() {
     case '1':
       //player attacks the enemy
       player->attack(*enemy);
+
+      play_effect("attack_example_sound.wav");
+      
       cout << "You attacked the enemy" << endl;
       break;
 
