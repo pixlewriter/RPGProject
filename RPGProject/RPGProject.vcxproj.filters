@@ -16,6 +16,9 @@
     <Filter Include="Utilities">
       <UniqueIdentifier>{244be276-c3f0-4cd5-9977-a3934b277896}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Sounds">
+      <UniqueIdentifier>{fd2242d2-1d6a-4448-9b2d-9086c4bd1f06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,8 @@
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
+    <ClCompile Include="audio_manager.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,5 +76,16 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="miniaudio.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="audio_manager.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sounds\attack_example_sound.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>
