@@ -70,6 +70,12 @@
     <ClInclude Include="Utillities\structures.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="InventoryItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="manageInventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerCreationMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "enterBattle.h"
+#include "manageInventory.h"
 #include "Menu.h"
 #include "Player.h"
 #include "IntegerChangeMenu.h"
@@ -10,7 +11,6 @@ using namespace std;
 
 // function prototypes
 void returnToOverworld();
-void manageInventory();
 void enterShop();
 void chat();
 void quitGame();
@@ -64,6 +64,8 @@ int main() {
     }
 
     cout << endl;
+    //give the player an inventory
+    player.inventory = generateInventory();
 
     while (running) {
         vector<string> options= {"Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game"};
@@ -78,7 +80,7 @@ int main() {
             enterBattle(&player);
             break;
         case 3:
-            manageInventory();
+            manageInventory(&player);
             break;
         case 4:
             enterShop();
@@ -102,10 +104,6 @@ int main() {
 
 void returnToOverworld() {
     std::cout << "[Action] Returning to the overworld...\n";
-}
-
-void manageInventory() {
-    std::cout << "[Action] Opening inventory management...\n";
 }
 
 void enterShop() {
