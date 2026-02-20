@@ -11,7 +11,7 @@ void Character::heal() {
 }
 
 void Character::damageDealt(double damage) {
-	setTempHealth(getTempHealth() - damage);
+	tempHealth -= damage;
 }
 
 double Character::getStrength() {
