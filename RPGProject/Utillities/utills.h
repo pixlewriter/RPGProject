@@ -57,9 +57,10 @@ namespace QOLL {
 	int rollDice(int num, std::string dice);
 	std::string validateAnswer(std::string question, std::vector<std::string> answers); //TODO Overload with Regex's?
 	int validateAnswer(std::string question, int start, int end);
-	std::string center(std::string text, unsigned int width);
 	std::string colorText(Color color);
 	std::string colorText(std::string text, Color color, bool end = true);
+	std::string center(std::string text, unsigned int width);
+	std::string center(std::string text, unsigned int width, Color color);
 	void printMenu(int currentChoice, const char* options[], const int optionsSize);
 	int menuInput(const char* options[], const int optionSize);
 

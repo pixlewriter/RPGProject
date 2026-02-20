@@ -4,6 +4,7 @@
 #include "manageInventory.h"
 #include "Menu.h"
 #include "Player.h"
+#include "IntegerChangeMenu.h"
 
 using namespace std;
 #include "audio_manager.h"
@@ -21,59 +22,54 @@ int main() {
 
     Player player;
 
-    vector<string> classOptions = { "Fighter", "Wizard", "Rouge"};
-    Menu classMenu = { "Player Class", classOptions };
-    int classChoice = classMenu.printDynamicMenu();
-    
-    switch (classChoice) {
-    case 1: // Fighter is 100 health, 20 attack, no mana
-        player = { 100,20,0 };
-        break;
-    case 2: // Wizard is 50 health, 5 attack, 50 mana
-        player = { 50,5,50 };
-        break;
-    case 3: // Rouge is 60 health, 10 attack, 20 mana
-        player = { 60,10,20 };
-        break;
-    }
+    //vector<string> classOptions = { "Fighter", "Wizard", "Rouge"};
+    //Menu classMenu = { "Player Class", classOptions };
+    //int classChoice = classMenu.printDynamicMenu();
+    //
+    //switch (classChoice) {
+    //case 1: // Fighter is 100 health, 20 attack, no mana
+    //    player = { 100,20,0 };
+    //    break;
+    //case 2: // Wizard is 50 health, 5 attack, 50 mana
+    //    player = { 50,5,50 };
+    //    break;
+    //case 3: // Rouge is 60 health, 10 attack, 20 mana
+    //    player = { 60,10,20 };
+    //    break;
+    //}
+
+    player.generateStats(10);
+    cout << endl;
 
     vector<string> raceOptions = { "Orc", "Dwarf", "Elf", "Human" };
-    Menu raceMenu = { "Race Class", raceOptions };
+    ListMenu raceMenu = { "Race Class", raceOptions };
     int raceChoice = raceMenu.printDynamicMenu();
 
     switch (raceChoice) {
-    case 1: // If orc, increase health by 30, strength by 10, and decrease mana by 10
-        player.setMaxHealth(player.getMaxHealth() + 30);
-        player.setTempHealth(player.getMaxHealth());
-        player.setStrength(player.getStrength() + 10);
-        player.setMana(player.getMana() - 10);
+    case 1: // orc
+        player.increaseStat(Player::ABBILITY::str, 2);
+        player.increaseStat(Player::ABBILITY::con, 1);
         break;
     case 2: // If Dwarf, increase helath by 50, stregnth by 10, and decrease mana by 30
-        player.setMaxHealth(player.getMaxHealth() + 50);
-        player.setTempHealth(player.getMaxHealth());
-        player.setStrength(player.getStrength() + 10);
-        player.setMana(player.getMana() - 30);
+        player.increaseStat(Player::ABBILITY::con, 2);
+        player.increaseStat(Player::ABBILITY::wis, 1);
         break;
     case 3: // If Elf, decrease health by 10 and increase mana by 30
-        player.setMaxHealth(player.getMaxHealth() - 10);
-        player.setTempHealth(player.getMaxHealth());
-        // no strength change
-        player.setMana(player.getMana() + 30);
+        player.increaseStat(Player::ABBILITY::dex, 2);
+        player.increaseStat(Player::ABBILITY::inte, 1);
         break;
     case 4:// If Human increase all stats by 10
-        player.setMaxHealth(player.getMaxHealth() + 10);
-        player.setTempHealth(player.getMaxHealth());
-        player.setStrength(player.getStrength() + 10);
-        player.setMana(player.getMana() + 10);
+        player.increaseStat(Player::ABBILITY::all, 1);
         break;
     }
 
+    cout << endl;
     //give the player an inventory
     player.inventory = generateInventory();
 
     while (running) {
         vector<string> options= {"Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game"};
-        Menu settingsMenu{ "GAME MENU", options };
+        ListMenu settingsMenu{ "GAME MENU", options };
         int choice = settingsMenu.printDynamicMenu();
         //handles valid inputs
         switch (choice) {

@@ -82,36 +82,6 @@ namespace QOLL {
 
 	}
 
-	std::string center(std::string text, unsigned int width) {
-		std::string output = "";
-		//bool textOdd = text.length() % 2;
-		//bool widthOdd = text.length() % 2;
-		if (text.length() == width) {
-			return text;
-		}
-		if (text.length() > width) {
-			for (int i = 0; i <= width; i++) {
-				output += text[i];
-			}
-			return output;
-		}
-
-		size_t padding = (width - text.length()) / 2;
-		for (int i = 0; i < padding; i++) {
-			output += ' ';
-		}
-		int diff = width - text.length();
-		if (diff % 2 == 1) {
-			output += ' ';
-		}
-		output += text;
-		for (int i = 0; i < padding; i++) {
-			output += ' ';
-		}
-
-
-		return output;
-	}
 
 	std::string colorText(Color color) {
 		std::string s = std::to_string(static_cast<int>(color.style));
@@ -143,6 +113,68 @@ namespace QOLL {
 		output += "m";
 		output += text;
 		output += (end ? "\033[0m" : "");
+
+		return output;
+	}
+
+	std::string center(std::string text, unsigned int width) {
+		std::string output = "";
+		//bool textOdd = text.length() % 2;
+		//bool widthOdd = text.length() % 2;
+		if (text.length() == width) {
+			return text;
+		}
+		if (text.length() > width) {
+			for (int i = 0; i <= width; i++) {
+				output += text[i];
+			}
+			return output;
+		}
+
+		size_t padding = (width - text.length()) / 2;
+		for (int i = 0; i < padding; i++) {
+			output += ' ';
+		}
+		int diff = width - text.length();
+		if (diff % 2 == 1) {
+			output += ' ';
+		}
+		output += text;
+		for (int i = 0; i < padding; i++) {
+			output += ' ';
+		}
+
+
+		return output;
+	}
+
+	std::string center(std::string text, unsigned int width, Color color) {
+		std::string output = "";
+		//bool textOdd = text.length() % 2;
+		//bool widthOdd = text.length() % 2;
+		if (text.length() == width) {
+			return colorText(text,color,true);
+		}
+		if (text.length() > width) {
+			for (int i = 0; i <= width; i++) {
+				output += colorText(""+text[i], color, true);
+			}
+			return output;
+		}
+
+		size_t padding = (width - text.length()) / 2;
+		for (int i = 0; i < padding; i++) {
+			output += ' ';
+		}
+		int diff = width - text.length();
+		if (diff % 2 == 1) {
+			output += ' ';
+		}
+		output += colorText(text,color,true);
+		for (int i = 0; i < padding; i++) {
+			output += ' ';
+		}
+
 
 		return output;
 	}

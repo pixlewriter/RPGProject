@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void Menu::printStaticMenu(int currentChoice = -1) {
+void ListMenu::printStaticMenu(int currentChoice = -1) {
 	int size = options.size();
 	std::string cursor = "";
 	cout << "--- " << menuName << " ---" << endl;
@@ -27,7 +27,7 @@ void Menu::printStaticMenu(int currentChoice = -1) {
 	cout << "----" << endl;
 }
 
-int Menu::printDynamicMenu() {
+int ListMenu::printDynamicMenu() {
 	int optionSize = options.size();
 	//This string return the cursor to the start of the menu by moving the cursor up by the number of options \x1B[{number of lines + 2 (2 for the border and name)}A
 //then return the cursor to the start of the line \r
@@ -65,10 +65,10 @@ int Menu::printDynamicMenu() {
 	return 0;
 }
 
-string Menu::getMenuName() {
+string ListMenu::getMenuName() {
 	return menuName;
 }
 
-void Menu::setMenuName(string name) {
+void ListMenu::setMenuName(string name) {
 	menuName = name;
 }
