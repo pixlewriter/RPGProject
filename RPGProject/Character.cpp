@@ -27,6 +27,9 @@ double Character::getTempHealth() {
 }
 
 void Character::setTempHealth(double hitPoints) {
+	if (hitPoints <= 0) {
+		hitPoints = 1;
+	}
 	tempHealth = hitPoints;
 }
 
