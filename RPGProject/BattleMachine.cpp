@@ -14,7 +14,7 @@ using namespace std;
 
 BattleMachine::BattleMachine(Character* player) {
   //Spawns the player and sets stats
-  Character* newEnemy = nullptr;
+  Enemy* newEnemy = nullptr;
 
   //pick a random number between 1 and 3 to determine which enemy to generate
   default_random_engine engine{ static_cast<unsigned>(time(0)) };
@@ -25,21 +25,18 @@ BattleMachine::BattleMachine(Character* player) {
   switch (decisionMaker) {
 
   case 1:
-    //generated a troll
-    newEnemy = new Enemy(100, 5, 0);
-    cout << "A wild troll appears. It's tough but slow." << endl;
+    //generated a alien worker
+    newEnemy = alienWorker();
     break;
 
   case 2:
-    //generate a ghost
-    newEnemy = new Enemy(10, 10, 10);
-    cout << "It's a ghost. It looks pretty fragile." << endl;
+    //generate a alien soldier
+    newEnemy = alienSolier();
     break;
 
   case 3:
-    //generate a witch
-    newEnemy = new Enemy(25, 15, 25);
-    cout << "A witch. Burn her." << endl;
+    //generate an intergalactic technician
+    newEnemy = intergalacticTechnician();
     break;
   }
 
@@ -93,31 +90,41 @@ void BattleMachine::takeTurn() {
   //otherwise the enemy goes
   else {
     cout << "\033[2J\033[1;1H";
-   //pick a random number between 1 and 5 to determine enemy move
+   //pick a random number between 1 and 100 to determine enemy move
     default_random_engine engine{ static_cast<unsigned>(time(0)) };
-    uniform_int_distribution<unsigned> randomInt{ 1,5 };
+    uniform_int_distribution<unsigned> randomInt{ 1,100 };
     unsigned decisionMaker = randomInt(engine);
 
-    switch (decisionMaker) {
-    case 1:
-    case 2:
-    case 3:
-     //enemy attackes the player
+    // Decide what the enemy does based on the roll, the enemies' stat's, and the amount of health remaining
+
+    // Heal has a chance up to 30% taken by multiplying the percentage of health remaining by 30% 
+    if (decisionMaker > 0 && decisionMaker <= (30 * (1-(enemy->getTempHealth() / enemy->getMaxHealth())))) {
+      cout << "The enemy healed" << endl;
+      enemy->heal();
+    }
+    // Run away has a chance up to 30% taken by the enemy's fear plus two times fear times remaining health
+    else if (decisionMaker > 30 && decisionMaker < (30 + (enemy->getFear() + (2 * enemy->getFear() * (1 - enemy->getTempHealth() / enemy->getMaxHealth()))))) {
+      status = Status::ENEMYRUN;
+      cout << "The enemy ran away." << endl;
+    }
+    // 10% chance to do double damage based on the enemy's recklessness multiplied by health remaining
+    else if (decisionMaker > 60 && decisionMaker < (60 + (enemy->getRecklessness() * (1 - enemy->getTempHealth() / enemy->getMaxHealth())))) {
+      enemy->attack(*player);
+      enemy->attack(*player);
+      cout << "The enemy recklessly attacked, doing double damage." << endl;
+    }
+    // 10% chance to do self damage based on recklessness and current health percentage
+    else if (decisionMaker > 70 && decisionMaker < (70 + enemy->getRecklessness() * (1 - enemy->getTempHealth() / enemy->getMaxHealth()))) {
+      enemy->damageDealt(enemy->getStrength());
+      cout << "The enemy recklessly attacked, but struck himself instead" << endl;
+    }
+
+    // otherwise the enemy just attacks you
+    else {
       enemy->attack(*player);
       cout << "The enemy attacked you" << endl;
-      break;
-
-    case 4:
-      //enemy heals
-      enemy->heal();
-      cout << "The enemy healed" << endl;
-      break;
-
-    case 5:
-      //enemy runs away
-      status = Status::ENEMYRUN;
-      break;
     }
+
 
     //make it be the player's turn
     turn = Turn::PLAYER;

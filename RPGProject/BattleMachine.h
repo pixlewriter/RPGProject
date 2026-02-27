@@ -10,7 +10,7 @@ enum Turn { PLAYER, ENEMY };
 
 class BattleMachine {
 private:
-  Character* enemy;
+  Enemy* enemy;
   Character* player;
 
   //prints the results of the turn
