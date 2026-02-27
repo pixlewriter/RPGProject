@@ -31,7 +31,7 @@ BattleMachine::BattleMachine(Character* player) {
 
   case 2:
     //generate a alien soldier
-    newEnemy = alienSolier();
+    newEnemy = alienSoldier();
     break;
 
   case 3:

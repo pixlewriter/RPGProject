@@ -30,7 +30,7 @@ inline Enemy* alienWorker() {
 }
 
 //alien soldier
-inline Enemy* alienSolier() {
+inline Enemy* alienSoldier() {
   Enemy* enemy = new Enemy(700, 40, 5);
   enemy->setFear(3);
   enemy->setRecklessness(7);
