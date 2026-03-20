@@ -1,6 +1,8 @@
 #pragma once
 #include "Character.h"
 #include "Utillities/utills.h"
+#include "Shop.h";
+#include "InventoryItem.h"
 
 class Player :
     public Character
@@ -13,6 +15,7 @@ class Player :
     int charisma;
     int luck;
     int level;
+    int gold = 500;
     using Character::Character;
 public:
     static enum ABBILITY {str,dex,con,inte,wis,chars,all};
@@ -39,6 +42,9 @@ public:
     int getStat(ABBILITY);
     void generateStats(int points);
     void printStats();
+    void addToInventory(InventoryItem);
+    std::list<InventoryItem>& getInventory();
+    bool purchaseOrder(Order);
 };
 
 

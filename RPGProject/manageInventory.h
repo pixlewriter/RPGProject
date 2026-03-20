@@ -6,10 +6,11 @@
 #include<algorithm>
 
 
-inline void printInventory(std::list<InventoryItem> inventory) {
-  for (InventoryItem item : inventory) {
-    if (item.amount > 0) 
-      std::cout << item.name << ": " << item.amount;
+inline void printInventory(const std::list<InventoryItem>& inventory) {
+  for (const InventoryItem& item : inventory) {
+    if (item.amount > 0) {
+      std::cout << item.name << ": " << item.amount << std::endl;
+    }
   }
 }
 
@@ -17,16 +18,21 @@ inline void printInventory(std::list<InventoryItem> inventory) {
 //this function takes in an inventory and a string and increments the counter 
 inline void addItem(std::list<InventoryItem>& inventory, std::string name) {
   auto iterator = std::find_if(inventory.begin(), inventory.end(), [name](const InventoryItem& check) {return check.name == name; });
-
-  iterator->amount++;
+  if (iterator != inventory.end()) {
+    iterator->amount++;
+  }
+  else {
+    InventoryItem newItem(name, 0);
+    newItem.amount = 1;
+    inventory.push_back(newItem);
+  }
 }
 
 //this function takes in an inventory and an item name as arguemnts
 //it finds the item and decrements the counter if the counter is greater than zero
 inline void removeItem(std::list<InventoryItem>& inventory, std::string name) {
   auto iterator = std::find_if(inventory.begin(), inventory.end(), [name](const InventoryItem& check) {return check.name == name; });
-
-  if (iterator->amount>0) {
+  if (iterator != inventory.end() && iterator->amount > 0) {
     iterator->amount--;
   }
 }
@@ -47,21 +53,23 @@ inline void manageInventory(Character* player) {
 
    std::cout << "\033[2J\033[1;1H";
 
+   std::list<InventoryItem>& inventory = player->getInventory();
+
    switch (choice) {
    case '1':
-     printInventory(player->inventory);
+     printInventory(inventory);
      break;
 
    case'2':
      std::cout << "You picked up a rock" << std::endl;
-     addItem(player->inventory, "Rock");
-     printInventory(player->inventory);
+     addItem(inventory, "Rock");
+     printInventory(inventory);
      break;
 
    case '3':
      std::cout << "You dropped a rock" << std::endl;
-     removeItem(player->inventory, "Rock");
-     printInventory(player->inventory);
+     removeItem(inventory, "Rock");
+     printInventory(inventory);
      break;
    }
 }

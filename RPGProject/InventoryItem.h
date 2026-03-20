@@ -9,6 +9,10 @@ struct InventoryItem {
   int amount = 0;
   std::string name;
   int price;
+
+  bool operator==(const InventoryItem& other) const {
+      return name == other.name;
+  }
 };
 
 

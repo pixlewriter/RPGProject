@@ -9,11 +9,10 @@ private:
 	double tempHealth;
 	double strength;
 	double mana;
+protected:
+	std::list<InventoryItem> inventory;
 
 public:
-
-  //the character's inventory
-  std::list<InventoryItem> inventory;
 
 	/**
 	* Deals damage to a character
@@ -90,6 +89,8 @@ public:
 	* @param mana amount of mana the character will be set to
 	*/
 	void setMana(double mana);
+
+	std::list<InventoryItem>& getInventory();
 
 	Character(double health, double strength, double mana) :
 		maxHealth{ health },
