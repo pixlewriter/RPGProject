@@ -12,7 +12,7 @@ int Enemy::getFear() {
 	return fear;
 }
 
-double Enemy::getRecklessness (){
+int Enemy::getRecklessness (){
 	return recklessness;
 }
 
@@ -20,6 +20,6 @@ void Enemy::setFear(int num) {
 	fear = num;
 }
 
-void Enemy::setRecklessness(double num) {
+void Enemy::setRecklessness(int num) {
 	recklessness = num;
 }
