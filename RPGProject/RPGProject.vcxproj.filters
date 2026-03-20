@@ -11,6 +11,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Utillities\utills.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TalkingNPC.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -26,6 +27,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Utillities\structures.h" />
     <ClInclude Include="Utillities\utills.h" />
+    <ClInclude Include="Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sounds\attack_example_sound.wav" />

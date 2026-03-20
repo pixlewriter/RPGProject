@@ -5,13 +5,14 @@
 #include "Menu.h"
 #include "Player.h"
 #include "IntegerChangeMenu.h"
+#include "InventoryItem.h"
 
 using namespace std;
 #include "audio_manager.h"
 
 // function prototypes
 void returnToOverworld();
-void enterShop();
+void enterShop(Player& player);
 void chat();
 void quitGame();
 
@@ -65,7 +66,10 @@ int main() {
 
     cout << endl;
     //give the player an inventory
-    player.inventory = generateInventory();
+    list<InventoryItem> inventory = generateInventory();
+        for (InventoryItem item : inventory) {
+            player.addToInventory(item);
+    }
 
     while (running) {
         vector<string> options= {"Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game"};
@@ -83,7 +87,7 @@ int main() {
             manageInventory(&player);
             break;
         case 4:
-            enterShop();
+            enterShop(player);
             break;
         case 5:
             chat();
@@ -106,8 +110,53 @@ void returnToOverworld() {
     std::cout << "[Action] Returning to the overworld...\n";
 }
 
-void enterShop() {
-    std::cout << "[Action] Entering the shop menu...\n";
+void enterShop(Player& player) {
+    std::cout << "\033[2J\033[1;1H";
+    std::cout << "You walk up to a burly man in a road side trade stand." << endl;
+    std::cout << "One empty eye socket looks back at you before he says anything." << endl;
+    Order order;
+    for (int i = 0; i < 5; i++) {
+        std::cout << "\"Wha'dyou want?\"" << endl;
+        vector<string> options = {"To find your other eye.", "To look at your tools", "To purchase ya flower"};
+        ListMenu dialouge1("Dialogue Menu",options);
+        int choice = dialouge1.printDynamicMenu();
+        std::cout << "\033[2J\033[1;1H";
+        switch (choice) {
+        case 1:
+            cout << "He growls and you walk away knowing your nightmares would not be as pleasent as they normally are." << endl;
+            return;
+        case 2: {
+            cout << "\"Here you go then!\"" << endl;
+            Shop shop(shopType::starter);
+            order = shop.displayShopMenu();
+            bool successful = player.purchaseOrder(order);
+            std::cout << "\033[2J\033[1;1H";
+            if (!successful)
+                cout << "You don't have enough money" << endl;
+            else {
+                cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
+            }
+            return;
+        }
+        case 3: {
+            if (i == 0) {
+                cout << "He looks confused at your odd question and then gestures at the surrounding pansies." << endl;
+            }
+            else if (i == 4) {
+                cout << "His eyes light up. \"Ahhh yes my flower\". He winks and pulls out something from under his kart" << endl;
+                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10) }));
+                order = shop.displayShopMenu();
+                player.purchaseOrder(order);
+                std::cout << "\033[2J\033[1;1H";
+                cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
+            }
+            else {
+                cout << "He looks confused and insists he doesn't know what your talking about." << endl;
+            }
+            break;
+        }
+        }
+    }
 }
 
 void chat() {

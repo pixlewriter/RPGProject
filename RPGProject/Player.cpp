@@ -122,3 +122,21 @@ void Player::printStats() {
 	cout << wisdom << ", ";
 	cout << charisma << endl;
 }
+
+std::list<InventoryItem>& Player::getInventory() {
+    return inventory;
+}
+
+void Player::addToInventory(InventoryItem item) {
+	inventory.push_back(item);
+}
+
+bool Player::purchaseOrder(Order order) {
+	int cost = order.item.price * order.number;
+	if (gold < cost) return false;
+	gold -= cost;
+	order.item.amount = order.number;
+	addToInventory(order.item);
+    return true;
+}
+

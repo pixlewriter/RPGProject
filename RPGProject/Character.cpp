@@ -48,3 +48,7 @@ double Character::getMana() {
 void Character::setMana(double mana) {
 	this->mana = mana;
 }
+
+std::list<InventoryItem>& Character::getInventory() {
+	return inventory;
+}
