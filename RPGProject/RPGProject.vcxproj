@@ -192,6 +192,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="TalkingNPC.cpp" />
     <ClCompile Include="Utillities\utills.cpp" />
   </ItemGroup>
   <ItemGroup>

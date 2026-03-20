@@ -12,6 +12,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Utillities\utills.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="TalkingNPC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_manager.h" />
