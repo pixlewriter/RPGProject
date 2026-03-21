@@ -12,6 +12,7 @@ inline void printInventory(const std::list<InventoryItem>& inventory) {
       std::cout << item.name << ": " << item.amount << std::endl;
     }
   }
+  std::cout << std::endl;
 }
 
 

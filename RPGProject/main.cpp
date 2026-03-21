@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
+#include <random>
 #include "enterBattle.h"
 #include "manageInventory.h"
 #include "Menu.h"
 #include "Player.h"
 #include "IntegerChangeMenu.h"
 #include "InventoryItem.h"
+#include "TalkingNPC.h"
 
 using namespace std;
 #include "audio_manager.h"
@@ -161,6 +163,22 @@ void enterShop(Player& player) {
 
 void chat() {
     std::cout << "[Action] Starting a conversation with an NPC...\n";
+
+    default_random_engine engine{ static_cast<unsigned>(time(0)) };
+    uniform_int_distribution<unsigned> randomInt{ 1,2 };
+    unsigned decisionMaker = randomInt(engine);
+
+    if (decisionMaker == 1) {
+      roomMateNPC* roomMate = new roomMateNPC();
+      roomMate->printDialogue(0);
+      delete roomMate;
+    }
+    else {
+      hostileGuyNPC* jerk = new hostileGuyNPC();
+      jerk->printDialogue(0);
+      delete jerk;
+    }
+  
 }
 
 void quitGame() {

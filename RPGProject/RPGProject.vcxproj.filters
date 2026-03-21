@@ -28,6 +28,7 @@
     <ClInclude Include="Utillities\structures.h" />
     <ClInclude Include="Utillities\utills.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="TalkingNPC.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sounds\attack_example_sound.wav" />
