@@ -1,28 +1,25 @@
 #pragma once
 #include "Player.h"
+#include "Menu.h"
 #include "InventoryItem.h"
 #include<iostream>
 #include<list>
+#include<vector>
+#include<string>
 #include<algorithm>
 
 
-inline void printInventory(const std::list<InventoryItem>& inventory) {
-  for (const InventoryItem& item : inventory) {
-    if (item.amount > 0) {
-      std::cout << item.name << ": " << item.amount << std::endl;
-    }
-  }
-}
 
 
 //this function takes in an inventory and a string and increments the counter 
-inline void addItem(std::list<InventoryItem>& inventory, std::string name) {
-  auto iterator = std::find_if(inventory.begin(), inventory.end(), [name](const InventoryItem& check) {return check.name == name; });
+/*inline void addItem(std::list<InventoryItem>& inventory, InventoryItem& item) {
+  auto iterator = std::find_if(inventory.begin(), inventory.end(), [item.name](const InventoryItem& check) {return check.name == item.name; });
   if (iterator != inventory.end()) {
+    if (item.weight + )
     iterator->amount++;
   }
   else {
-    InventoryItem newItem(name, 0);
+    InventoryItem newItem(item.name, item.price, item.weight);
     newItem.amount = 1;
     inventory.push_back(newItem);
   }
@@ -36,41 +33,22 @@ inline void removeItem(std::list<InventoryItem>& inventory, std::string name) {
     iterator->amount--;
   }
 }
+*/
 
-inline void manageInventory(Character* player) {
-   //diplay a menu for the player to choose
-   std::cout << "Select an option" << std::endl;
-   std::cout << "1. View Inventory" << std::endl;
-   std::cout << "2. Add item" << std::endl;
-   std::cout << "3. Drop item" << std::endl;
-   char choice;
-   std::cin >> choice;
+inline void manageInventory(Player* player) {
+  //display the player's inventory
+  player->printInventory();
+  std::cout << std::endl;
 
-   //input validation, in case the user enters something different
-   while (choice != '1' && choice != '2' && choice != '3') {
-     std::cin >> choice;
-   }
+  //diplay a menu for the player to choose
+  std::vector<std::string> options{ "Drop item", "Return to menu" };
+  ListMenu checkInventory("Inventory Management", options);
+  int inventoryChoice = 0;
 
-   std::cout << "\033[2J\033[1;1H";
-
-   std::list<InventoryItem>& inventory = player->getInventory();
-
-   switch (choice) {
-   case '1':
-     printInventory(inventory);
-     break;
-
-   case'2':
-     std::cout << "You picked up a rock" << std::endl;
-     addItem(inventory, "Rock");
-     printInventory(inventory);
-     break;
-
-   case '3':
-     std::cout << "You dropped a rock" << std::endl;
-     removeItem(inventory, "Rock");
-     printInventory(inventory);
-     break;
-   }
-}
+  while (inventoryChoice != 2) {
+    inventoryChoice = checkInventory.printDynamicMenu();
+    if (inventoryChoice == 1)
+      player->dropItem();
+    }
+  }
 

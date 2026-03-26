@@ -7,8 +7,8 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "audio_manager.h"
+#include "Menu.h"
 
-using namespace std;
 
 //creates a new battle, spawning the player and a random enemy
 
@@ -17,8 +17,8 @@ BattleMachine::BattleMachine(Character* player) {
   Enemy* newEnemy = nullptr;
 
   //pick a random number between 1 and 3 to determine which enemy to generate
-  default_random_engine engine{ static_cast<unsigned>(time(0)) };
-  uniform_int_distribution<unsigned> randomInt{ 1,3 };
+  std::default_random_engine engine{ static_cast<unsigned>(time(0)) };
+  std::uniform_int_distribution<unsigned> randomInt{ 1,3 };
   unsigned decisionMaker = randomInt(engine);
 
   //a switch statement to decide which enemy to generate
@@ -47,37 +47,29 @@ void BattleMachine::takeTurn() {
   //allows the player to go if it is players turn
   if (turn == Turn::PLAYER) {
     //diplay a menu
-    cout << "Make your move. Choose wisely." << endl;
-    cout << "1. Attack" << endl;
-    cout << "2. Heal" << endl;
-    cout << "3. Run away" << endl;
-    char choice;
-    cin >> choice;
+    std::vector<std::string> options{ "Attack", "Heal", "Run Away" };
+    ListMenu turnOptions("Turn Options", options);
+    int choice = turnOptions.printDynamicMenu();
 
-    //input validation, in case the user enters something different
-    while (choice != '1' && choice != '2' && choice != '3') {
-      cin >> choice;
-    }
-
-    cout << "\033[2J\033[1;1H";
+    std::cout << "\033[2J\033[1;1H";
 
     switch (choice) {
-    case '1':
+    case 1:
       //player attacks the enemy
       player->attack(*enemy);
 
       play_effect("attack_example_sound.wav");
       
-      cout << "You attacked the enemy" << endl;
+      std::cout << "You attacked the enemy" << std::endl;
       break;
 
-    case '2':
+    case 2:
       //player heals
       player->heal();
-      cout << "You healed" << endl;
+      std::cout << "You healed" << std::endl;
       break;
 
-    case '3':
+    case 3:
       //player runs away
       status = Status::PLAYERRUN;
       break;
@@ -89,40 +81,40 @@ void BattleMachine::takeTurn() {
   
   //otherwise the enemy goes
   else {
-    cout << "\033[2J\033[1;1H";
+    std::cout << "\033[2J\033[1;1H";
    //pick a random number between 1 and 100 to determine enemy move
-    default_random_engine engine{ static_cast<unsigned>(time(0)) };
-    uniform_int_distribution<unsigned> randomInt{ 1,100 };
+    std::default_random_engine engine{ static_cast<unsigned>(time(0)) };
+    std::uniform_int_distribution<unsigned> randomInt{ 1,100 };
     unsigned decisionMaker = randomInt(engine);
 
     // Decide what the enemy does based on the roll, the enemies' stat's, and the amount of health remaining
 
     // Heal has a chance up to 30% taken by multiplying the percentage of health remaining by 30% 
     if (decisionMaker > 0 && decisionMaker <= (30 * (1-(enemy->getTempHealth() / enemy->getMaxHealth())))) {
-      cout << "The enemy healed" << endl;
+      std::cout << "The enemy healed" << std::endl;
       enemy->heal();
     }
     // Run away has a chance up to 30% taken by the enemy's fear plus two times fear times remaining health
     else if (decisionMaker > 30 && decisionMaker < (30 + (enemy->getFear() + (2 * enemy->getFear() * (1 - enemy->getTempHealth() / enemy->getMaxHealth()))))) {
       status = Status::ENEMYRUN;
-      cout << "The enemy ran away." << endl;
+      std::cout << "The enemy ran away." << std::endl;
     }
     // 10% chance to do double damage based on the enemy's recklessness multiplied by health remaining
     else if (decisionMaker > 60 && decisionMaker < (60 + (enemy->getRecklessness() * (1 - enemy->getTempHealth() / enemy->getMaxHealth())))) {
       enemy->attack(*player);
       enemy->attack(*player);
-      cout << "The enemy recklessly attacked, doing double damage." << endl;
+      std::cout << "The enemy recklessly attacked, doing double damage." << std::endl;
     }
     // 10% chance to do self damage based on recklessness and current health percentage
     else if (decisionMaker > 70 && decisionMaker < (70 + enemy->getRecklessness() * (1 - enemy->getTempHealth() / enemy->getMaxHealth()))) {
       enemy->damageDealt(enemy->getStrength());
-      cout << "The enemy recklessly attacked, but struck himself instead" << endl;
+      std::cout << "The enemy recklessly attacked, but struck himself instead" << std::endl;
     }
 
     // otherwise the enemy just attacks you
     else {
       enemy->attack(*player);
-      cout << "The enemy attacked you" << endl;
+      std::cout << "The enemy attacked you" << std::endl;
     }
 
 
@@ -138,8 +130,8 @@ void BattleMachine::takeTurn() {
     turnResults();
     //press enter to continue if the player just attacked
     if (turn == Turn::ENEMY) {
-      cin.ignore();
-      cin.get();
+      std::cin.ignore();
+      std::cin.get();
     }
   }
 
@@ -148,30 +140,30 @@ void BattleMachine::takeTurn() {
 }
 
 void BattleMachine::turnResults() {
-  cout << "Player stats:" << endl;
-  cout << "Health: " << player->getTempHealth() << "/" << player->getMaxHealth() << endl;
-  cout << "Mana: " << player->getMana() << endl;
-  cout << "Attack: " << player->getStrength() << endl;
-  cout << "\nEnemy health: " << enemy->getTempHealth() << endl;
+  std::cout << "Player stats:" << std::endl;
+  std::cout << "Health: " << player->getTempHealth() << "/" << player->getMaxHealth() << std::endl;
+  std::cout << "Mana: " << player->getMana() << std::endl;
+  std::cout << "Attack: " << player->getStrength() << std::endl;
+  std::cout << "\nEnemy health: " << enemy->getTempHealth() << std::endl;
 }
 
 void BattleMachine::battleResults() {
   //print results of the battle depending on what the STATUS is set to
   switch (status) {
   case PLAYERDEAD:
-    cout << "You died. What a wimp." << endl;
+    std::cout << "You died. What a wimp." << std::endl;
     break;
 
   case PLAYERRUN:
-    cout << "You ran away. Find some courage next time." << endl;
+    std::cout << "You ran away. Find some courage next time." << std::endl;
     break;
 
   case ENEMYDEAD:
-    cout << "You slayed the enemy." << endl;
+    std::cout << "You slayed the enemy." << std::endl;
     break;
 
   case ENEMYRUN:
-    cout << "You hit the enemy so hard he ran away." << endl;
+    std::cout << "You hit the enemy so hard he ran away." << std::endl;
     break;
   }
 

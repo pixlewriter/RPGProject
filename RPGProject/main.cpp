@@ -66,10 +66,11 @@ int main() {
 
     cout << endl;
     //give the player an inventory
+    /*
     list<InventoryItem> inventory = generateInventory();
         for (InventoryItem item : inventory) {
             player.addToInventory(item);
-    }
+    }*/
 
     while (running) {
         vector<string> options= {"Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game"};
@@ -128,11 +129,13 @@ void enterShop(Player& player) {
         case 2: {
             cout << "\"Here you go then!\"" << endl;
             Shop shop(shopType::starter);
+            cout << "Gold: " << player.seeGold() << endl;
+            cout << "Weight: " << player.seeWeight() << "/200" << std::endl;
             order = shop.displayShopMenu();
             bool successful = player.purchaseOrder(order);
             std::cout << "\033[2J\033[1;1H";
             if (!successful)
-                cout << "You don't have enough money" << endl;
+                cout << "Purchase order exceeds weight cap or gold." << endl;
             else {
                 cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
             }
@@ -144,7 +147,7 @@ void enterShop(Player& player) {
             }
             else if (i == 4) {
                 cout << "His eyes light up. \"Ahhh yes my flower\". He winks and pulls out something from under his kart" << endl;
-                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10) }));
+                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10, 1) }));
                 order = shop.displayShopMenu();
                 player.purchaseOrder(order);
                 std::cout << "\033[2J\033[1;1H";

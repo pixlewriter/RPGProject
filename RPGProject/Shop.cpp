@@ -7,25 +7,25 @@
 
 using namespace std;
 
-Node<InventoryItem>* createItem(string name, int gold) {
-	return new Node<InventoryItem>(*(new InventoryItem(name, gold)));
+Node<InventoryItem>* createItem(string name, int gold, int weight) {
+	return new Node<InventoryItem>(*(new InventoryItem(name, gold, weight)));
 }
 
 Shop::Shop(shopType type) {
 	if (type == shopType::starter) {
-		inventory.enqueue(*createItem("Basic Axe",100));
-		inventory.enqueue(*createItem("Basic Sword", 75));
-		inventory.enqueue(*createItem("Basic Dagger", 20));
-		inventory.enqueue(*createItem("Health Potion", 30));
-		inventory.enqueue(*createItem("Bread", 5));
+		inventory.enqueue(*createItem("Basic Axe",100, 20));
+		inventory.enqueue(*createItem("Basic Sword", 75, 20));
+		inventory.enqueue(*createItem("Basic Dagger", 20, 15));
+		inventory.enqueue(*createItem("Health Potion", 30, 5));
+		inventory.enqueue(*createItem("Bread", 5, 1));
 	}
 	else if (type == shopType::librarian) {
-		inventory.enqueue(*createItem("Physical Education 101", 100));;
-		inventory.enqueue(*createItem("Mechanics", 100));
-		inventory.enqueue(*createItem("Biology 101", 100));
-		inventory.enqueue(*createItem("Data Structures", 100));
-		inventory.enqueue(*createItem("Romeo and Juliet", 100));
-		inventory.enqueue(*createItem("Catechism", 10));
+		inventory.enqueue(*createItem("Physical Education 101", 100, 3));;
+		inventory.enqueue(*createItem("Mechanics", 100, 3));
+		inventory.enqueue(*createItem("Biology 101", 100, 3));
+		inventory.enqueue(*createItem("Data Structures", 100, 3));
+		inventory.enqueue(*createItem("Romeo and Juliet", 100, 3));
+		inventory.enqueue(*createItem("Catechism", 10, 3));
 	}
 }
 
@@ -88,7 +88,7 @@ void Shop::displayStaticMenu() {
 			cursor = "  ";
 		}
 		std::cout << "                                                                               \r";
-		std::cout << cursor << i << ". " << currentItem->data.name << " ---- Cost: "<< currentItem->data.price << std::endl;
+		std::cout << cursor << i << ". " << currentItem->data.name << " ---- Cost: "<< currentItem->data.price << " ---- Weight: " << currentItem->data.weight << std::endl;
 		inventory.enqueue(*inventory.dequeue());
 		currentItem = inventory.getFront();
 		i++;
@@ -136,7 +136,7 @@ Order Shop::displayShopMenu() {
 		}
 	}
 	Order nullOrder;
-	nullOrder.item = InventoryItem("null", 0);
+	nullOrder.item = InventoryItem("null", 0, 0);
 	nullOrder.number = 0;
 	return nullOrder;
 }

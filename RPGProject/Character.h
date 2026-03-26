@@ -10,7 +10,7 @@ private:
 	double strength;
 	double mana;
 protected:
-	std::list<InventoryItem> inventory;
+  std::list<InventoryItem> inventory;
 
 public:
 
