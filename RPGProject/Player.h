@@ -15,7 +15,7 @@ class Player :
     int charisma;
     int luck;
     int level;
-    int gold = 500;
+    int gold = 5000;
     int inventoryWeight = 0;
     using Character::Character;
 public:

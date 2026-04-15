@@ -149,7 +149,7 @@ void Player::dropItem(){
 }
 
 void Player::addToInventory(InventoryItem item) {
-  if (item.weight + inventoryWeight < 200) {
+  if (item.weight + inventoryWeight <= 200) {
 	inventory.push_back(item);
 	inventoryWeight += item.weight;
   }
@@ -158,10 +158,11 @@ void Player::addToInventory(InventoryItem item) {
 bool Player::purchaseOrder(Order order) {
 	int cost = order.item.price * order.number;
 	int heft = order.item.weight * order.number;
-	if (gold < cost || inventoryWeight + heft > 200) return false;
+	if (gold < cost || inventoryWeight + heft >= 200) return false;
 	gold -= cost;
-	order.item.amount = order.number;
-	addToInventory(order.item);
+	for (int i = 0; i < order.number; i++) {
+      addToInventory(order.item);
+	}
     return true;
 }
 

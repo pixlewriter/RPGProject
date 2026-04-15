@@ -6,7 +6,7 @@
 struct InventoryItem {
   InventoryItem(std::string n, int p, int w) : name(n), price(p), weight(w) {}
 
-  int amount = 0;
+  int amount = 1;
   std::string name;
   int price;
   int weight;
