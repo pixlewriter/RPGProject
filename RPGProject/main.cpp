@@ -7,8 +7,10 @@
 #include "IntegerChangeMenu.h"
 #include "InventoryItem.h"
 
-using namespace std;
+
 #include "audio_manager.h"
+
+using namespace std;
 
 // function prototypes
 void returnToOverworld();
@@ -107,7 +109,7 @@ int main() {
 //function definitions
 
 void returnToOverworld() {
-    std::cout << "[Action] Returning to the overworld...\n";
+   
 }
 
 void enterShop(Player& player) {
