@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <random>
 #include <string>
 #include "enterBattle.h"
 #include "manageInventory.h"
@@ -8,6 +9,7 @@
 #include "IntegerChangeMenu.h"
 #include "InventoryItem.h"
 #include "audio_manager.h"
+#include "TalkingNPC.h"
 
 using namespace std;
 
@@ -38,7 +40,7 @@ void Game::enterShop() {
             bool successful = player.purchaseOrder(order);
             std::cout << "\033[2J\033[1;1H";
             if (!successful)
-                cout << "You don't have enough money" << endl;
+                cout << "Purchase order exceeds weight cap or gold." << endl;
             else {
                 cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
             }
@@ -50,7 +52,7 @@ void Game::enterShop() {
             }
             else if (i == 4) {
                 cout << "His eyes light up. \"Ahhh yes my flower\". He winks and pulls out something from under his kart" << endl;
-                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10) }));
+                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10, 1) }));
                 order = shop.displayShopMenu();
                 player.purchaseOrder(order);
                 std::cout << "\033[2J\033[1;1H";
@@ -65,8 +67,24 @@ void Game::enterShop() {
     }
 }
 
-void Game::chat() {
+void chat(Character* player) {
     std::cout << "[Action] Starting a conversation with an NPC...\n";
+
+    default_random_engine engine{ static_cast<unsigned>(time(0)) };
+    uniform_int_distribution<unsigned> randomInt{ 1,2 };
+    unsigned decisionMaker = randomInt(engine);
+
+    if (decisionMaker == 1) {
+        roomMateNPC* roomMate = new roomMateNPC();
+        roomMate->printDialogue(0);
+        delete roomMate;
+    }
+    else {
+        player->alanEncounter = 1;
+        hostileGuyNPC* jerk = new hostileGuyNPC();
+        jerk->printDialogue(0);
+        delete jerk;
+    }
 }
 
 void Game::quitGame() {
@@ -132,7 +150,13 @@ bool Game::displayOptions(WASDNode& location) {
             enterShop();
             break;
         case 5:
-            chat();
+            chat(&player);
+
+            if (player.alanEncounter == 1)
+            {
+                enterBattle(&player);
+                player.alanEncounter = 0;
+            }
             break;
         case 6:
             quitGame();
@@ -196,6 +220,7 @@ bool Game::gameLoop() {
     std::cout << "\033[2J\033[1;1H";
     while (displayOptions(*location)) {
         location = Map::getLocation(location);
+        std::cout << "\033[2J\033[1;1H";
     }
     terminate();
     return false;
