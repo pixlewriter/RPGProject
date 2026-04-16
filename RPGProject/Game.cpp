@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <random>
 #include <string>
 #include "enterBattle.h"
 #include "manageInventory.h"
@@ -8,6 +9,7 @@
 #include "IntegerChangeMenu.h"
 #include "InventoryItem.h"
 #include "audio_manager.h"
+#include "TalkingNPC.h"
 
 using namespace std;
 
@@ -67,6 +69,21 @@ void Game::enterShop() {
 
 void Game::chat() {
     std::cout << "[Action] Starting a conversation with an NPC...\n";
+
+    default_random_engine engine{ static_cast<unsigned>(time(0)) };
+    uniform_int_distribution<unsigned> randomInt{ 1,2 };
+    unsigned decisionMaker = randomInt(engine);
+
+    if (decisionMaker == 1) {
+        roomMateNPC* roomMate = new roomMateNPC();
+        roomMate->printDialogue(0);
+        delete roomMate;
+    }
+    else {
+        hostileGuyNPC* jerk = new hostileGuyNPC();
+        jerk->printDialogue(0);
+        delete jerk;
+    }
 }
 
 void Game::quitGame() {
@@ -196,6 +213,7 @@ bool Game::gameLoop() {
     std::cout << "\033[2J\033[1;1H";
     while (displayOptions(*location)) {
         location = Map::getLocation(location);
+        std::cout << "\033[2J\033[1;1H";
     }
     terminate();
     return false;
