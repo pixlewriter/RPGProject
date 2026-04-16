@@ -11,9 +11,9 @@ private:
 	double mana;
 protected:
 	std::list<InventoryItem> inventory;
-
+	
 public:
-
+	int alanEncounter = 0;
 	/**
 	* Deals damage to a character
 	*

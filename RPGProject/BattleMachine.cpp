@@ -22,24 +22,30 @@ BattleMachine::BattleMachine(Character* player) {
   unsigned decisionMaker = randomInt(engine);
 
   //a switch statement to decide which enemy to generate
-  switch (decisionMaker) {
-
-  case 1:
-    //generated a alien worker
-    newEnemy = alienWorker();
-    break;
-
-  case 2:
-    //generate a alien soldier
-    newEnemy = alienSoldier();
-    break;
-
-  case 3:
-    //generate an intergalactic technician
-    newEnemy = intergalacticTechnician();
-    break;
+  
+  if (player->alanEncounter == 1) {
+      newEnemy = alanTheAhole();
   }
+  else
+  {
+      switch (decisionMaker) {
 
+      case 1:
+          //generated a alien worker
+          newEnemy = alienWorker();
+          break;
+
+      case 2:
+          //generate a alien soldier
+          newEnemy = alienSoldier();
+          break;
+
+      case 3:
+          //generate an intergalactic technician
+          newEnemy = intergalacticTechnician();
+          break;
+      }
+  }
   this->enemy = newEnemy;
   this->player = player;
 }
