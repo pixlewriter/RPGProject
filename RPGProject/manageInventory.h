@@ -9,6 +9,14 @@
 #include<algorithm>
 
 
+inline void printInventory(const std::list<InventoryItem>& inventory) {
+  for (const InventoryItem& item : inventory) {
+    if (item.amount > 0) {
+      std::cout << item.name << ": " << item.amount << std::endl;
+    }
+  }
+  std::cout << std::endl;
+}
 
 
 //this function takes in an inventory and a string and increments the counter 
