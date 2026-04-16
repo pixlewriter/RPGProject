@@ -15,7 +15,8 @@ class Player :
     int charisma;
     int luck;
     int level;
-    int gold = 500;
+    int gold = 5000;
+    int inventoryWeight = 0;
     using Character::Character;
 public:
     static enum ABBILITY {str,dex,con,inte,wis,chars,all};
@@ -42,9 +43,13 @@ public:
     int getStat(ABBILITY);
     void generateStats(int points);
     void printStats();
+    void dropItem();
     void addToInventory(InventoryItem);
     std::list<InventoryItem>& getInventory();
     bool purchaseOrder(Order);
+    void printInventory();
+    int seeGold() { return gold; }
+    int seeWeight() { return inventoryWeight; }
 };
 
 

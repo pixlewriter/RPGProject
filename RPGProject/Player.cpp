@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "IntegerChangeMenu.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -127,16 +128,49 @@ std::list<InventoryItem>& Player::getInventory() {
     return inventory;
 }
 
+void Player::dropItem(){
+  std::vector<std::string> options{ "Exit" };
+  for (InventoryItem i : inventory) {
+	options.push_back(i.name);
+  }
+  ListMenu dropItem("Drop Item", options);
+  int choice = dropItem.printDynamicMenu() - 1;
+  if (choice != 0) {
+    std::list<InventoryItem>::iterator it = inventory.begin();
+
+    for (int i = 1; i < choice; i++) {
+      ++it;
+    }
+    it->amount--;
+	inventoryWeight -= it->weight;
+    if (it->amount == 0)
+      it = inventory.erase(it);
+  }
+}
+
 void Player::addToInventory(InventoryItem item) {
+  if (item.weight + inventoryWeight <= 200) {
 	inventory.push_back(item);
+	inventoryWeight += item.weight;
+  }
 }
 
 bool Player::purchaseOrder(Order order) {
 	int cost = order.item.price * order.number;
-	if (gold < cost) return false;
+	int heft = order.item.weight * order.number;
+	if (gold < cost || inventoryWeight + heft >= 200) return false;
 	gold -= cost;
-	order.item.amount = order.number;
-	addToInventory(order.item);
+	for (int i = 0; i < order.number; i++) {
+      addToInventory(order.item);
+	}
     return true;
+}
+
+void Player::printInventory() {
+  for (const InventoryItem item : inventory) {
+    if (item.amount > 0) {
+      std::cout << item.name << ": " << item.amount << std::endl;
+    }
+  }
 }
 

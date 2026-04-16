@@ -5,8 +5,9 @@
 
 struct Order {
     // Initialize `item` with an explicit InventoryItem so Order has a valid default constructor.
-    InventoryItem item = InventoryItem("", 0);
+    InventoryItem item = InventoryItem("", 0, 0);
     int number = 0;
+    
 
     // Defaulted default constructor (now available because members have default initializers)
     Order() = default;
