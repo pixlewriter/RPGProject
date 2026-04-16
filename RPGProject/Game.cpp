@@ -40,7 +40,7 @@ void Game::enterShop() {
             bool successful = player.purchaseOrder(order);
             std::cout << "\033[2J\033[1;1H";
             if (!successful)
-                cout << "You don't have enough money" << endl;
+                cout << "Purchase order exceeds weight cap or gold." << endl;
             else {
                 cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
             }
@@ -52,7 +52,7 @@ void Game::enterShop() {
             }
             else if (i == 4) {
                 cout << "His eyes light up. \"Ahhh yes my flower\". He winks and pulls out something from under his kart" << endl;
-                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10) }));
+                Shop shop(std::vector<InventoryItem>({ InventoryItem("Bread",10, 1) }));
                 order = shop.displayShopMenu();
                 player.purchaseOrder(order);
                 std::cout << "\033[2J\033[1;1H";
