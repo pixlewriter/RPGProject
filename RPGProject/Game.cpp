@@ -67,7 +67,7 @@ void Game::enterShop() {
     }
 }
 
-void Game::chat() {
+void chat(Character* player) {
     std::cout << "[Action] Starting a conversation with an NPC...\n";
 
     default_random_engine engine{ static_cast<unsigned>(time(0)) };
@@ -80,6 +80,7 @@ void Game::chat() {
         delete roomMate;
     }
     else {
+        player->alanEncounter = 1;
         hostileGuyNPC* jerk = new hostileGuyNPC();
         jerk->printDialogue(0);
         delete jerk;
@@ -149,7 +150,13 @@ bool Game::displayOptions(WASDNode& location) {
             enterShop();
             break;
         case 5:
-            chat();
+            chat(&player);
+
+            if (player.alanEncounter == 1)
+            {
+                enterBattle(&player);
+                player.alanEncounter = 0;
+            }
             break;
         case 6:
             quitGame();
