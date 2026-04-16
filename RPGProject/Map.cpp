@@ -35,12 +35,26 @@ std::string Map::hexToBackgroundColor(std::string hex) {
 void Map::printMap(std::string name) {
     std::cout << "\033[2J\033[1;1H";
     std::string fileName = "WorldMap-" + name + ".csv";
-    std::string filePath = "C:\\Users\\ryankufeldt\\Documents\\Visual Studio\\Side Projects\\KeyMap\\KeyMap\\CSVFiles\\" + fileName;
-    std::ifstream file(filePath); // Open the CSV file
+    std::string filePath = "./CSVFiles/" + fileName;
+    std::ifstream file(filePath);// Open the CSV file
+    // If the absolute path fails, try a relative-path fallback to the project's CSVFiles folder
+    if (!file.is_open()) {
+        std::string altPath = "CSVFiles/" + fileName;
+        file.open(altPath);
+        if (!file.is_open()) {
+            std::cerr << "Failed to open CSV file at: " << filePath << " or " << altPath << "\n";
+            return;
+        }
+    }
     std::string line;
 
     // Skip the header line (optional, if your file has one)
-    std::getline(file, line);
+    if (!std::getline(file, line)) {
+        // file is empty
+        std::cerr << "CSV file is empty: " << fileName << "\n";
+        file.close();
+        return;
+    }
     int x;
     int y = -1;
     while (std::getline(file, line)) {
@@ -74,6 +88,7 @@ void Map::printMap(std::string name) {
         }
         std::cout << hexToForgroundColor(forground) << hexToBackgroundColor(background) << ASCII << "\x1b[0m";
     }
+    std::cout << std::endl;
 
     file.close();
 }

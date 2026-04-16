@@ -11,8 +11,9 @@
 
 using namespace std;
 
-void Game::returnToOverworld() {
+bool Game::returnToOverworld() {
 	std::cout << "[Action] Returning to the overworld...\n";
+    return true;
 }
 
 void Game::enterShop() {
@@ -109,7 +110,7 @@ void Game::generatePlayerInventory() {
     }
 }
 
-void Game::displayOptions(WASDNode& location) {
+bool Game::displayOptions(WASDNode& location) {
     int choice = 0;
     bool running = true;
     while (running) {
@@ -119,8 +120,7 @@ void Game::displayOptions(WASDNode& location) {
         //handles valid inputs
         switch (choice) {
         case 1:
-            returnToOverworld();
-            break;
+            return returnToOverworld();
         case 2:
             //use location?
             enterBattle(&player);
@@ -142,55 +142,48 @@ void Game::displayOptions(WASDNode& location) {
             std::cout << "Invalid selection. Please try again.\n";
         }
     }
+    return false;
 }
 
 WASDNode* Game::buildMap() {
-    WASDNode CODA;
-    CODA.data = "CODA";
-    WASDNode Egan;
-    Egan.data = "Egan";
-    WASDNode CTT;
-    CTT.data = "CTT";
-    WASDNode Gym;
-    Gym.data = "Gym";
-    WASDNode JC;
-    JC.data = "JC";
-    WASDNode Cafe;
-    Cafe.data = "Cafe";
-    WASDNode Chapel;
-    Chapel.data = "Chapel";
-    WASDNode Library;
-    Library.data = "Library";
+    WASDNode* CODA    = new WASDNode("Coda");
+    WASDNode* Egan    = new WASDNode("Egan");
+    WASDNode* CTT     = new WASDNode("CTT");
+    WASDNode* Gym     = new WASDNode("Gym");
+    WASDNode* JC      = new WASDNode("JC");
+    WASDNode* Cafe    = new WASDNode("Cafe");
+    WASDNode* Chapel  = new WASDNode("Chapel");
+    WASDNode* Library = new WASDNode("Library");
 
-    CODA.a = &Egan;
-    CODA.w = &JC;
-    CODA.d = &Library;
+    CODA->a = Egan;
+    CODA->w = JC;
+    CODA->d = Library;
 
-    CTT.w = &Gym;
-    CTT.d = &JC;
-    CTT.s = &Egan;
+    CTT->w = Gym;
+    CTT->d = JC;
+    CTT->s = Egan;
 
-    Cafe.w = &JC;
-    Cafe.s = &Chapel;
+    Cafe->w = JC;
+    Cafe->s = Chapel;
 
-    Chapel.w = &Cafe;
-    Chapel.s = &Library;
+    Chapel->w = Cafe;
+    Chapel->s = Library;
 
-    Egan.w = &CTT;
-    Egan.s = &CODA;
+    Egan->w = CTT;
+    Egan->s = CODA;
 
-    Gym.a = &CTT;
-    Gym.d = &JC;
+    Gym->a = CTT;
+    Gym->d = JC;
 
-    JC.w = &Gym;
-    JC.a = &CTT;
-    JC.s = &CODA;
-    JC.d = &Cafe;
+    JC->w = Gym;
+    JC->a = CTT;
+    JC->s = CODA;
+    JC->d = Cafe;
 
-    Library.a = &CODA;
-    Library.d = &Chapel;
+    Library->a = CODA;
+    Library->d = Chapel;
 
-    return &JC;
+    return JC;
 }
 
 void Game::gameSetup() {
@@ -200,15 +193,17 @@ void Game::gameSetup() {
 bool Game::gameLoop() {
     WASDNode* location = buildMap();
     location =  Map::getLocation(location);
-    displayOptions(*location);
+    std::cout << "\033[2J\033[1;1H";
+    while (displayOptions(*location)) {
+        location = Map::getLocation(location);
+    }
+    terminate();
     return false;
 }
 
 void Game::run() {
     init_audio();
-    while (gameLoop()) {
-
-    }
+    while (gameLoop());
 }
 
 void Game::terminate() {

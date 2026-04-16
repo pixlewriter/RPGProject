@@ -7,13 +7,13 @@ class Game
 {
 private:
 	Player player;
-	void returnToOverworld();
+	bool returnToOverworld();
 	void enterShop();
 	void chat();
 	void quitGame();
 	void generateRace();
 	void generatePlayerInventory();
-	void displayOptions(WASDNode&);
+	bool displayOptions(WASDNode&);
 	WASDNode* buildMap();
 	void displayKeys();
 public:

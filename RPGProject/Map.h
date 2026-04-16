@@ -6,6 +6,10 @@ struct WASDNode {
     WASDNode* a = nullptr;
     WASDNode* s = nullptr;
     WASDNode* d = nullptr;
+
+    WASDNode (std::string name) {
+        data = name;
+    }
 };
 
 class Map
