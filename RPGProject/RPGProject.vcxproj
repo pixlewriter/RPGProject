@@ -211,6 +211,7 @@
     <ClInclude Include="miniaudio.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="TalkingNPC.h" />
     <ClInclude Include="Utillities\structures.h" />
     <ClInclude Include="Utillities\utills.h" />
   </ItemGroup>

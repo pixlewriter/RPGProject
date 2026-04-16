@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <random>
 #include "enterBattle.h"
 #include "manageInventory.h"
 #include "Menu.h"
