@@ -15,7 +15,7 @@ using namespace std;
 // function prototypes
 void returnToOverworld();
 void enterShop(Player& player);
-void chat();
+void chat(Character* player);
 void quitGame();
 
 int main() {
@@ -92,7 +92,13 @@ int main() {
             enterShop(player);
             break;
         case 5:
-            chat();
+            chat(&player);
+            
+            if (player.alanEncounter == 1)
+            {
+                enterBattle(&player);
+                player.alanEncounter = 0;
+            }
             break;
         case 6:
             quitGame();
@@ -161,7 +167,7 @@ void enterShop(Player& player) {
     }
 }
 
-void chat() {
+void chat(Character* player) {
     std::cout << "[Action] Starting a conversation with an NPC...\n";
 
     default_random_engine engine{ static_cast<unsigned>(time(0)) };
@@ -174,6 +180,7 @@ void chat() {
       delete roomMate;
     }
     else {
+        player->alanEncounter = 1;
       hostileGuyNPC* jerk = new hostileGuyNPC();
       jerk->printDialogue(0);
       delete jerk;

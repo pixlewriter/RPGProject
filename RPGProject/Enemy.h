@@ -48,3 +48,13 @@ inline Enemy* intergalacticTechnician() {
   std::cout << "An intergalactic technician stands in front of you. He's very strong but fragile and fearful." << std::endl;
   return enemy;
 }
+
+//Alan
+inline Enemy* alanTheAhole() {
+    Enemy* enemy = new Enemy(250, 100, 25);
+    enemy->setFear(1);
+    enemy->setRecklessness(5);
+
+    std::cout << "Alan the A-hole has confronted you. The time for de-escalating is over. Careful though, he's strong and not in the mood to run." << std::endl;
+    return enemy;
+}
