@@ -13,6 +13,8 @@
     <ClCompile Include="Utillities\utills.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TalkingNPC.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio_manager.h" />
@@ -29,6 +31,8 @@
     <ClInclude Include="Utillities\utills.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="TalkingNPC.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sounds\attack_example_sound.wav" />
