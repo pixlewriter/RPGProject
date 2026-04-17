@@ -67,7 +67,8 @@ void Game::enterShop() {
     }
 }
 
-void chat(Character* player) {
+void Game::chat(Player* player) {
+  /*
     std::cout << "[Action] Starting a conversation with an NPC...\n";
 
     default_random_engine engine{ static_cast<unsigned>(time(0)) };
@@ -85,6 +86,9 @@ void chat(Character* player) {
         jerk->printDialogue(0);
         delete jerk;
     }
+    */
+  englishProfessorNPC* teacher = new englishProfessorNPC();
+  teacher->printDialogue(0, player);
 }
 
 void Game::quitGame() {
@@ -121,12 +125,14 @@ void Game::generateRace() {
     cout << endl;
 }
 
+/*
 void Game::generatePlayerInventory() {
     list<InventoryItem> inventory = generateInventory();
     for (InventoryItem item : inventory) {
         player.addToInventory(item);
     }
 }
+*/
 
 bool Game::displayOptions(WASDNode& location) {
     int choice = 0;

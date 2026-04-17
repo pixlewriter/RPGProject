@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Player.h"
+#include "InventoryItem.h"
 
 using namespace std;
 
@@ -245,4 +247,55 @@ public:
     );
 
   }
+};
+
+class englishProfessorNPC : public TalkingNPC {
+public:
+  englishProfessorNPC() :TalkingNPC("English Professor", 3) {
+    dialogueTree[0] = new DialogueNode(
+      "Hey, I've seen you in Epic and the Person. Let's see if you've been paying attention. On which circle of hell is Ulysses?",
+      "1. Sixth\n2. Seventh\n3. Eighth\n4. Ninth",
+      { 1,1,2,1 }
+    );
+
+    dialogueTree[1] = new DialogueNode(
+      "Hmmm. You might want to read more carefully.",
+      "",
+      {}
+    );
+
+    dialogueTree[2] = new DialogueNode(
+      "Good work, I see you have been paying attention. Here's something you might enjoy",
+      "",
+      {}
+    );
+  }
+
+  void printDialogue(int currentIndex, Player* player) {
+      // bounds checking to make sure index/node exists
+      if (currentIndex < 0 || currentIndex >= dialogueTree.size()) return;
+
+      DialogueNode* node = dialogueTree[currentIndex];
+
+      //prints the npc's name and the NPC response(or greeting if the convo just started), then displays player options
+      cout << "\n" << name << ": " << node->getNPCTalk() << "\n";
+      cout << node->getPlayerChoices() << "\n";
+
+      int choice;
+      cin >> choice;
+
+      if (currentIndex == 2) {
+        InventoryItem* book = new InventoryItem("Book of Poems", 100, 10);
+        player->addToInventory(*book);
+        cout << "The professor hands you a brand new book of poetry.";
+      }
+
+      //subtract one from the choice so that the user gets 1 based counting
+      int nextIdx = node->getNextIndex(choice-1);
+      if (nextIdx != -1) {
+          printDialogue(nextIdx, player);
+      }
+  }
+
+
 };

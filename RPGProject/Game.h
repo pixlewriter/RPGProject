@@ -9,7 +9,7 @@ private:
 	Player player;
 	bool returnToOverworld();
 	void enterShop();
-	void chat();
+	void chat(Player*);
 	void quitGame();
 	void generateRace();
 	void generatePlayerInventory();
