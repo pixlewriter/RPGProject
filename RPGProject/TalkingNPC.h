@@ -284,6 +284,7 @@ public:
       int choice;
       cin >> choice;
 
+      //gives the player an item if a certain index is reached
       if (currentIndex == 2) {
         InventoryItem* book = new InventoryItem("Book of Poems", 100, 10);
         player->addToInventory(*book);

@@ -49,7 +49,7 @@ BattleMachine::BattleMachine(Character* player) {
   this->enemy = newEnemy;
   this->player = player;
 }
-void BattleMachine::takeTurn() {
+int BattleMachine::takeTurn() {
   //allows the player to go if it is players turn
   if (turn == Turn::PLAYER) {
     //diplay a menu
