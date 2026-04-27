@@ -153,7 +153,7 @@ bool Game::displayOptions(WASDNode& location) {
     bool running = true;
     while (running) {
         vector<string> options = { "Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game" };
-        cout << location.data << endl;
+        //cout << location.data << endl;
         bool shopLocation = !(location.data != "JC" && location.data != "Cafe");
         if (!shopLocation) {
             options.erase(options.begin() + 3);
