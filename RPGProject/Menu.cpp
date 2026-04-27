@@ -38,7 +38,23 @@ int ListMenu::printDynamicMenu() {
 	while (true) {
 		if (_kbhit()) { // Check if a key has been pressed
 			char key = _getch(); // Get the key character
-			if (key == -32 || key == 0) {
+			//cout << "key: " << key << "-" << key * 1 << endl;
+			switch (key) {
+			case 'w':
+			case 'a':
+				if (currentChoice <= 1) currentChoice = optionSize;
+				else currentChoice--;
+				std::cout << returnString;
+				printStaticMenu(currentChoice);
+				break;
+			case 's':
+			case 'd':
+				currentChoice = ((currentChoice++) % optionSize) + 1;
+				std::cout << returnString;
+				printStaticMenu(currentChoice);
+				break;
+			case -32:
+			case 0:
 				key = _getch();
 				switch (key) {
 				case 80:
@@ -55,10 +71,16 @@ int ListMenu::printDynamicMenu() {
 				default:
 					break;
 				}
-			}
-			else if (key == 13) {
+				break;
+			case 13:
 				return currentChoice;
 			}
+			/*if (key == -32 || key == 0) {
+				
+			}
+			else if (key == 13) {
+				
+			}*/
 
 		}
 	}

@@ -7,9 +7,12 @@ class Game
 {
 private:
 	Player player;
+	WASDNode* location;
+
 	bool returnToOverworld();
 	void enterShop();
 	void chat(Player*);
+	void startGame();
 	void quitGame();
 	void generateRace();
 	void generatePlayerInventory();

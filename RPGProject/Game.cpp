@@ -91,12 +91,26 @@ void Game::chat(Player* player) {
   teacher->printDialogue(0, player);
 }
 
+void Game::startGame() {
+    vector<string> startOptions = { "New Game", "Quit Game" };
+    ListMenu startMenu = { "Start Menu", startOptions };
+    int startChoice = startMenu.printDynamicMenu();
+    
+    switch (startChoice) {
+    case 1:
+        return;
+    case 2:
+        terminate();
+    }
+}
+
 void Game::quitGame() {
     std::cout << "[Action] Exiting game. Goodbye!\n";
     terminate();
 }
 
 void Game::generateRace() {
+    cout << "Pick the stats for your character. You have 10 skill points." << endl;
     player.generateStats(10);
     cout << endl;
 
@@ -139,8 +153,14 @@ bool Game::displayOptions(WASDNode& location) {
     bool running = true;
     while (running) {
         vector<string> options = { "Return to Game", "Enter Battle", "Manage Inventory", "Enter Shop", "Talk to Someone", "Quit Game" };
-        ListMenu settingsMenu{ "GAME MENU", options };
+        cout << location.data << endl;
+        bool shopLocation = !(location.data != "JC" && location.data != "Cafe");
+        if (!shopLocation) {
+            options.erase(options.begin() + 3);
+        }
+        ListMenu settingsMenu{ "ACTION MENU", options };
         int choice = settingsMenu.printDynamicMenu();
+        if (choice > 3 && !shopLocation) choice++;
         //handles valid inputs
         switch (choice) {
         case 1:
@@ -217,12 +237,12 @@ WASDNode* Game::buildMap() {
 }
 
 void Game::gameSetup() {
-
+    this->location = buildMap();
+    generateRace();
 }
 
 bool Game::gameLoop() {
-    WASDNode* location = buildMap();
-    location =  Map::getLocation(location);
+    this->location =  Map::getLocation(location);
     std::cout << "\033[2J\033[1;1H";
     while (displayOptions(*location)) {
         location = Map::getLocation(location);
@@ -234,6 +254,8 @@ bool Game::gameLoop() {
 
 void Game::run() {
     init_audio();
+    startGame();
+    gameSetup();
     while (gameLoop());
 }
 
