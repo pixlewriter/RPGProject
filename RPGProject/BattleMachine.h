@@ -27,7 +27,7 @@ public:
   BattleMachine(Character* player);
 
   //takes a turn depending on whose turn it is, and prints the results of the turn
-  void takeTurn();
+  int takeTurn();
     //at the end of the battle, prints the results of the battle
   void battleResults();
  
