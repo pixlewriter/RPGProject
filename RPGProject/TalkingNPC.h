@@ -287,7 +287,6 @@ public:
 
       if (currentIndex == 5 || currentIndex == 8 || currentIndex == 9) {
           player->alanEncounter = 1;
-          //send to a special overloaded function
           enterBattle(player);
           player->alanEncounter = 0;
       }
