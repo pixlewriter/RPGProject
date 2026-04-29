@@ -91,10 +91,15 @@ void Game::chat(Player* player, WASDNode& location) {
         jerk->printDialogue(0, player);
         delete jerk;
     }
-    if (location.data == "Egan") {
+    else if (location.data == "Egan") {
         englishProfessorNPC* teacher = new englishProfessorNPC();
         teacher->printDialogue(0, player);
+        delete teacher;
     }
+    else {
+      std::cout << "There is no one here to talk to" << std::endl;
+    }
+
 }
 
 void Game::startGame() {
