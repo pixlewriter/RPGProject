@@ -40,5 +40,6 @@
     <Media Include="battle_music1 (1).wav" />
     <Media Include="hit_effect.wav" />
     <Media Include="start3.wav" />
+    <Media Include="heal_effect.wav" />
   </ItemGroup>
 </Project>

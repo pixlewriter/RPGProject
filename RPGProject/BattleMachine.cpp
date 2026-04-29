@@ -73,6 +73,7 @@ int BattleMachine::takeTurn() {
     case 2:
       //player heals
       player->heal();
+      play_effect("heal_effect.wav");
       std::cout << "You healed" << std::endl;
       break;
 
