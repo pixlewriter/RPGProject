@@ -89,8 +89,9 @@ void Map::printMap(std::string name) {
         std::cout << hexToForgroundColor(forground) << hexToBackgroundColor(background) << ASCII << "\x1b[0m";
     }
     std::cout << std::endl;
-
+    
     file.close();
+
 }
 
 WASDNode* Map::getLocation(WASDNode* location) {
@@ -117,4 +118,5 @@ WASDNode* Map::getLocation(WASDNode* location) {
             }
         }
     }
+
 }
