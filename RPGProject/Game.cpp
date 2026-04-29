@@ -121,25 +121,30 @@ void Game::generateRace() {
     player.generateStats(10);
     cout << endl;
 
-    vector<string> raceOptions = { "Orc", "Dwarf", "Elf", "Human" };
-    ListMenu raceMenu = { "Race Class", raceOptions };
+    vector<string> raceOptions = { "Biology", "Mechanical Engineer", "Computer Science", "English", "Theology", "Buisness"};
+    ListMenu raceMenu = { "Majors", raceOptions };
     int raceChoice = raceMenu.printDynamicMenu();
 
     switch (raceChoice) {
-    case 1: // orc
+    case 1: // biology
         player.increaseStat(Player::ABBILITY::str, 2);
-        player.increaseStat(Player::ABBILITY::con, 1);
-        break;
-    case 2: // If Dwarf, increase helath by 50, stregnth by 10, and decrease mana by 30
         player.increaseStat(Player::ABBILITY::con, 2);
-        player.increaseStat(Player::ABBILITY::wis, 1);
         break;
-    case 3: // If Elf, decrease health by 10 and increase mana by 30
+    case 2: // Mechanical Engineer
+        player.increaseStat(Player::ABBILITY::con, 2);
         player.increaseStat(Player::ABBILITY::dex, 2);
-        player.increaseStat(Player::ABBILITY::inte, 1);
         break;
-    case 4:// If Human increase all stats by 10
-        player.increaseStat(Player::ABBILITY::all, 1);
+    case 3: // Computer Science
+        player.increaseStat(Player::ABBILITY::all, 2);
+        break;
+    case 4:// English
+        player.increaseStat(Player::ABBILITY::inte, 4);
+        break;
+    case 5:// English
+        player.increaseStat(Player::ABBILITY::chars, 4);
+        break;
+    case 6:
+        player.increaseStat(Player::ABBILITY::all, -1);
         break;
     }
 

@@ -141,8 +141,7 @@ int BattleMachine::takeTurn() {
     }
   }
 
-  
-
+  return 0;
 }
 
 void BattleMachine::turnResults() {
