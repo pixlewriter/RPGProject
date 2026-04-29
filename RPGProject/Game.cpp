@@ -19,6 +19,7 @@ bool Game::returnToOverworld() {
 }
 
 void Game::enterShop() {
+    start_music("shop_music.wav", true);
     std::cout << "\033[2J\033[1;1H";
     std::cout << "You walk up to a burly man in a road side trade stand." << endl;
     std::cout << "One empty eye socket looks back at you before he says anything." << endl;
@@ -32,6 +33,7 @@ void Game::enterShop() {
         switch (choice) {
         case 1:
             cout << "He growls and you walk away knowing your nightmares would not be as pleasent as they normally are." << endl;
+            stop_music();
             return;
         case 2: {
             cout << "\"Here you go then!\"" << endl;
@@ -44,6 +46,7 @@ void Game::enterShop() {
             else {
                 cout << "You purchased x" << order.number << " " << order.item.name << " for a total cost of " << order.item.price * order.number << " gold." << endl;
             }
+            stop_music();
             return;
         }
         case 3: {
@@ -67,7 +70,7 @@ void Game::enterShop() {
     }
 }
 
-void Game::chat(Player* player) {
+void Game::chat(Player* player, WASDNode& location) {
   /*
     std::cout << "[Action] Starting a conversation with an NPC...\n";
 
@@ -81,23 +84,27 @@ void Game::chat(Player* player) {
         delete roomMate;
     }
     else {
+    */
+    if (location.data == "Cafe") {
         player->alanEncounter = 1;
         hostileGuyNPC* jerk = new hostileGuyNPC();
-        jerk->printDialogue(0);
+        jerk->printDialogue(0, player);
         delete jerk;
     }
-    */
-  englishProfessorNPC* teacher = new englishProfessorNPC();
-  teacher->printDialogue(0, player);
+    if (location.data == "Egan") {
+        englishProfessorNPC* teacher = new englishProfessorNPC();
+        teacher->printDialogue(0, player);
+    }
 }
 
 void Game::startGame() {
     vector<string> startOptions = { "New Game", "Quit Game" };
     ListMenu startMenu = { "Start Menu", startOptions };
     int startChoice = startMenu.printDynamicMenu();
-    
+
     switch (startChoice) {
     case 1:
+        
         return;
     case 2:
         terminate();
@@ -242,10 +249,14 @@ void Game::gameSetup() {
 }
 
 bool Game::gameLoop() {
+    start_music("map_music1.wav", true);
     this->location =  Map::getLocation(location);
+    stop_music();
     std::cout << "\033[2J\033[1;1H";
     while (displayOptions(*location)) {
+        start_music("map_music1.wav", true);
         location = Map::getLocation(location);
+        stop_music();
         std::cout << "\033[2J\033[1;1H";
     }
     terminate();
@@ -255,6 +266,7 @@ bool Game::gameLoop() {
 void Game::run() {
     init_audio();
     startGame();
+    play_effect("start3.wav");
     gameSetup();
     openingCutscene();
 

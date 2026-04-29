@@ -6,9 +6,10 @@
 #include "Player.h"
 #include "Map.h"
 #include "Menu.h"
-
+#include "audio_manager.h"
 
 inline void enterBattle(Character* player, WASDNode* location) {
+  start_music("battle_music1 (1).wav", true);
   //clears the screen
   std::cout << "\033[2J\033[1;1H";
 
@@ -34,4 +35,5 @@ inline void enterBattle(Character* player, WASDNode* location) {
   //diplay a menu
   noChoice.printDynamicMenu();
   std::cout << "\033[2J\033[1;1H";
+  stop_music();
   }

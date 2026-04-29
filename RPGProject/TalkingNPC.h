@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Player.h"
+#include "enterBattle.h"
 #include "InventoryItem.h"
 #include "Menu.h"
 
@@ -271,6 +272,31 @@ public:
       { "Press Enter to exit conversation" }, {}
     );
 
+  }
+  void printDialogue(int currentIndex, Player* player) {
+      // bounds checking to make sure index/node exists
+      if (currentIndex < 0 || currentIndex >= dialogueTree.size()) return;
+
+      DialogueNode* node = dialogueTree[currentIndex];
+
+      //prints the npc's name and the NPC response(or greeting if the convo just started), then displays player options
+      cout << "\n" << name << ": " << node->getNPCTalk() << "\n";
+      cout << node->getPlayerChoices() << "\n";
+
+      int choice;
+      cin >> choice;
+
+      if (currentIndex == 5 || currentIndex == 8 || currentIndex == 9) {
+          player->alanEncounter = 1;
+          enterBattle(player);
+          player->alanEncounter = 0;
+      }
+
+      //subtract one from the choice so that the user gets 1 based counting
+      int nextIdx = node->getNextIndex(choice - 1);
+      if (nextIdx != -1) {
+          printDialogue(nextIdx, player);
+      }
   }
 };
 

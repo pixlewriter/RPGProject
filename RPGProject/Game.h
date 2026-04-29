@@ -11,7 +11,7 @@ private:
 
 	bool returnToOverworld();
 	void enterShop();
-	void chat(Player*);
+	void chat(Player*, WASDNode&);
 	void startGame();
 	void quitGame();
 	void generateRace();
