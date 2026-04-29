@@ -8,7 +8,7 @@
 #include "Menu.h"
 #include "audio_manager.h"
 
-inline void enterBattle(Character* player, WASDNode* location) {
+inline void enterBattle(Character* player, WASDNode* location = nullptr) {
   start_music("battle_music1 (1).wav", true);
   //clears the screen
   std::cout << "\033[2J\033[1;1H";

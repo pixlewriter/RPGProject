@@ -280,14 +280,14 @@ public:
       DialogueNode* node = dialogueTree[currentIndex];
 
       //prints the npc's name and the NPC response(or greeting if the convo just started), then displays player options
-      cout << "\n" << name << ": " << node->getNPCTalk() << "\n";
-      cout << node->getPlayerChoices() << "\n";
-
-      int choice;
-      cin >> choice;
+      cout << node->getNPCTalk() << endl;
+      ListMenu dialogMenu(" ", node->getPlayerChoices());
+      int choice = dialogMenu.printDynamicMenu();
+      std::cout << "\033[2J\033[1;1H";
 
       if (currentIndex == 5 || currentIndex == 8 || currentIndex == 9) {
           player->alanEncounter = 1;
+          //send to a special overloaded function
           enterBattle(player);
           player->alanEncounter = 0;
       }

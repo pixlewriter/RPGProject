@@ -16,7 +16,7 @@
 
 //creates a new battle, spawning the player and a random enemy
 
-BattleMachine::BattleMachine(Character* player, WASDNode* location) {
+BattleMachine::BattleMachine(Character* player, WASDNode* location = nullptr) {
 
   //Spawns the player and sets stats
   Enemy* newEnemy = nullptr;
@@ -37,8 +37,24 @@ BattleMachine::BattleMachine(Character* player, WASDNode* location) {
   newEnemy = enemySelector[deciscionMaker]();
 
   
-  if (player->alanEncounter == 1) {
+  if (location == nullptr) {
       newEnemy = alanTheAhole();
+  }
+  else {
+    //initialize the array
+    std::array<std::function<Enemy* ()>, 7> enemySelector{
+      intergalacticTechnician, landShark, alienSoldier, rA, alienWorker, pacificTreeOctopus, doofenshmirtz
+    };
+
+    unsigned length = static_cast<unsigned>(location->data.length());
+    //pick a random character in the location name
+    std::default_random_engine engine{ static_cast<unsigned>(time(0)) };
+    std::uniform_int_distribution<unsigned> randomInt{ 0, length};
+    char character = std::tolower(location->data[randomInt(engine)]);
+
+    //convert the character to a letter and take mod 7 to determine which enemy to generate
+    int deciscionMaker = (character - 'a') % 7;
+    newEnemy = enemySelector[deciscionMaker]();
   }
 
   this->enemy = newEnemy;

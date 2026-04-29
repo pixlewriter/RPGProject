@@ -188,7 +188,7 @@ bool Game::displayOptions(WASDNode& location) {
             enterShop();
             break;
         case 5:
-            chat(&player);
+            chat(&player, location);
 
             if (player.alanEncounter == 1)
             {
