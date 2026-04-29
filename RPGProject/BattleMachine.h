@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Map.h"
 
 //enum types to determine whose turn it is and whether anyone is dead or running away
 enum Status {ATWAR,PLAYERDEAD,PLAYERRUN,ENEMYDEAD,ENEMYRUN}; 
@@ -24,7 +25,7 @@ public:
   Turn turn = Turn::PLAYER;
 
   //creates a battle machine, selects an enemy, and sets the player stats
-  BattleMachine(Character* player);
+  BattleMachine(Character*, WASDNode*);
 
   //takes a turn depending on whose turn it is, and prints the results of the turn
   int takeTurn();

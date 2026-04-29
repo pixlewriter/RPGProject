@@ -174,7 +174,7 @@ bool Game::displayOptions(WASDNode& location) {
             return returnToOverworld();
         case 2:
             //use location?
-            enterBattle(&player);
+            enterBattle(&player, &location);
             break;
         case 3:
             manageInventory(&player);
@@ -183,8 +183,13 @@ bool Game::displayOptions(WASDNode& location) {
             enterShop();
             break;
         case 5:
-            
-            chat(&player, location);
+            chat(&player);
+
+            if (player.alanEncounter == 1)
+            {
+                enterBattle(&player, &location);
+                player.alanEncounter = 0;
+            }
             break;
         case 6:
             quitGame();
@@ -263,10 +268,27 @@ void Game::run() {
     startGame();
     play_effect("start3.wav");
     gameSetup();
+    openingCutscene();
+
     while (gameLoop());
 }
 
 void Game::terminate() {
     cleanup_audio();
     std::exit(0);
+}
+
+void Game::openingCutscene() {
+  roomMateNPC* roommate = new roomMateNPC;
+  roommate->printDialogue(0);
+
+  cout << "You take a large drink from the glass. It's not too bad. And you do feel better.";
+  cout << "\n\nYou feel so good that you wonder if perhaps the world could use you. Maybe there are people out there in desparate need of help. ";
+  cout << "You head off toward the JC to see if you're newfound energy is needed..."<< endl;
+
+
+  vector<string> options{ "Press enter to continue" };
+  ListMenu noChoice(" ", options);
+  int choice = noChoice.printDynamicMenu();
+  cout << "\033[2J\033[1;1H";
 }
