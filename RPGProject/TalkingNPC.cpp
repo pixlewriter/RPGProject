@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Player.h"
+#include "enterBattle.h"
 
 using namespace std;
 
@@ -215,32 +217,32 @@ public:
 
     dialogueTree[4] = new DialogueNode(
       "Look, when I need a therapist, I'll let you know. But not today.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
     dialogueTree[5] = new DialogueNode(
       "I'll decide what's a big deal and what's not. And you need to watch where you're going.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
     dialogueTree[6] = new DialogueNode(
       "Get out of here.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
     dialogueTree[7] = new DialogueNode(
       "Well, try to avoid having your 'important stuff' interfere with my life.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
     dialogueTree[8] = new DialogueNode(
       "Watch your mouth. A punch in the face might improve those powers of observation.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
     dialogueTree[9] = new DialogueNode(
       "If you kept your eyes open, it would be obvious. And you would be able to stay out of my way.", 
-      "Press Enter to return to exit conversation", {}
+      "Press 0 to exit conversation", {}
     );
 
   }

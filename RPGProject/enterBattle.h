@@ -4,9 +4,11 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "audio_manager.h"
 
 
 inline void enterBattle(Character* player) {
+  start_music("battle_music1 (1).wav", true);
   //clears the screen
   std::cout << "\033[2J\033[1;1H";
 
@@ -27,4 +29,5 @@ inline void enterBattle(Character* player) {
   std::cin.ignore();
   std::cin.get();
   std::cout << "\033[2J\033[1;1H";
+  stop_music();
   }

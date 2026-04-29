@@ -64,7 +64,7 @@ void BattleMachine::takeTurn() {
       //player attacks the enemy
       player->attack(*enemy);
 
-      play_effect("attack_example_sound.wav");
+      play_effect("hit_effect.wav");
       
       std::cout << "You attacked the enemy" << std::endl;
       break;
