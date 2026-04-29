@@ -2,50 +2,45 @@
 #include<random>
 #include<string>
 #include<ctime>
+#include<array>
+#include<cctype>
+#include<functional>
 #include "BattleMachine.h"
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "audio_manager.h"
 #include "Menu.h"
+#include "Map.h"
 
 
 //creates a new battle, spawning the player and a random enemy
 
-BattleMachine::BattleMachine(Character* player) {
+BattleMachine::BattleMachine(Character* player, WASDNode* location) {
+
   //Spawns the player and sets stats
   Enemy* newEnemy = nullptr;
 
-  //pick a random number between 1 and 3 to determine which enemy to generate
-  std::default_random_engine engine{ static_cast<unsigned>(time(0)) };
-  std::uniform_int_distribution<unsigned> randomInt{ 1,3 };
-  unsigned decisionMaker = randomInt(engine);
+  //initialize the array
+  std::array<std::function<Enemy* ()>, 7> enemySelector{
+    intergalacticTechnician, landShark, alienSoldier, rA, alienWorker, pacificTreeOctopus, doofenshmirtz
+  };
 
-  //a switch statement to decide which enemy to generate
+  unsigned length = static_cast<unsigned>(location->data.length());
+  //pick a random character in the location name
+  std::default_random_engine engine{ static_cast<unsigned>(time(0)) };
+  std::uniform_int_distribution<unsigned> randomInt{ 0, length};
+  char character = std::tolower(location->data[randomInt(engine)]);
+
+  //convert the character to a letter and take mod 7 to determine which enemy to generate
+  int deciscionMaker = (character - 'a') % 7;
+  newEnemy = enemySelector[deciscionMaker]();
+
   
   if (player->alanEncounter == 1) {
       newEnemy = alanTheAhole();
   }
-  else
-  {
-      switch (decisionMaker) {
 
-      case 1:
-          //generated a alien worker
-          newEnemy = alienWorker();
-          break;
-
-      case 2:
-          //generate a alien soldier
-          newEnemy = alienSoldier();
-          break;
-
-      case 3:
-          //generate an intergalactic technician
-          newEnemy = intergalacticTechnician();
-          break;
-      }
-  }
   this->enemy = newEnemy;
   this->player = player;
 }
@@ -136,13 +131,16 @@ int BattleMachine::takeTurn() {
     turnResults();
     //press enter to continue if the player just attacked
     if (turn == Turn::ENEMY) {
-      std::cin.ignore();
-      std::cin.get();
+      //diplay a menu
+      std::vector<std::string> options{ "Press enter to continue" };
+      ListMenu noChoice(" ", options);
+      int choice = noChoice.printDynamicMenu();
+
+      std::cout << "\033[2J\033[1;1H";
     }
   }
 
-  
-
+  return 0;
 }
 
 void BattleMachine::turnResults() {

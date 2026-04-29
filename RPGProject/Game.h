@@ -19,6 +19,7 @@ private:
 	bool displayOptions(WASDNode&);
 	WASDNode* buildMap();
 	void displayKeys();
+	void openingCutscene();
 public:
 	Game(Player& player) :player{ player } {}
 	void gameSetup();

@@ -4,16 +4,23 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Map.h"
+#include "Menu.h"
 
 
-inline void enterBattle(Character* player) {
+inline void enterBattle(Character* player, WASDNode* location) {
   //clears the screen
   std::cout << "\033[2J\033[1;1H";
 
   //creates a new battle, which loads the player and a random enemy
-  BattleMachine battle(player);
+  BattleMachine battle(player, location);
 
-  std::cin.ignore();
+  //diplay a menu
+  std::vector<std::string> options{ "Press enter to continue" };
+  ListMenu noChoice(" ", options);
+  int choice = noChoice.printDynamicMenu();
+  std::cout << "\033[2J\033[1;1H";
+
 
   //player and enemy take turns as long as neither of them dies or runs away
   while (battle.status == Status::ATWAR) {
@@ -24,7 +31,7 @@ inline void enterBattle(Character* player) {
 
   //displays the results of the battle
   battle.battleResults();
-  std::cin.ignore();
-  std::cin.get();
+  //diplay a menu
+  noChoice.printDynamicMenu();
   std::cout << "\033[2J\033[1;1H";
   }
